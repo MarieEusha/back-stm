@@ -1,0 +1,247 @@
+<?php
+
+namespace App\Entity;
+
+use App\Repository\TeamRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity(repositoryClass=TeamRepository::class)
+ */
+class Team
+{
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(type="string", length=75)
+     */
+    private $label;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $category;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Coach::class)
+     */
+    private $coach;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Club::class, inversedBy="teams")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $club;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Player::class, mappedBy="team")
+     */
+    private $players;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Training::class, mappedBy="team", orphanRemoval=true)
+     */
+    private $trainings;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Tactic::class, mappedBy="team", orphanRemoval=true)
+     */
+    private $tactics;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Encounter::class, mappedBy="team")
+     */
+    private $encounters;
+
+    public function __construct()
+    {
+        $this->players = new ArrayCollection();
+        $this->trainings = new ArrayCollection();
+        $this->tactics = new ArrayCollection();
+        $this->encounters = new ArrayCollection();
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getLabel(): ?string
+    {
+        return $this->label;
+    }
+
+    public function setLabel(string $label): self
+    {
+        $this->label = $label;
+
+        return $this;
+    }
+
+    public function getCategory(): ?string
+    {
+        return $this->category;
+    }
+
+    public function setCategory(string $category): self
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    public function getCoach(): ?Coach
+    {
+        return $this->coach;
+    }
+
+    public function setCoach(?Coach $coach): self
+    {
+        $this->coach = $coach;
+
+        return $this;
+    }
+
+    public function getClub(): ?Club
+    {
+        return $this->club;
+    }
+
+    public function setClub(?Club $club): self
+    {
+        $this->club = $club;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Player[]
+     */
+    public function getPlayers(): Collection
+    {
+        return $this->players;
+    }
+
+    public function addPlayer(Player $player): self
+    {
+        if (!$this->players->contains($player)) {
+            $this->players[] = $player;
+            $player->setTeam($this);
+        }
+
+        return $this;
+    }
+
+    public function removePlayer(Player $player): self
+    {
+        if ($this->players->contains($player)) {
+            $this->players->removeElement($player);
+            // set the owning side to null (unless already changed)
+            if ($player->getTeam() === $this) {
+                $player->setTeam(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Training[]
+     */
+    public function getTrainings(): Collection
+    {
+        return $this->trainings;
+    }
+
+    public function addTraining(Training $training): self
+    {
+        if (!$this->trainings->contains($training)) {
+            $this->trainings[] = $training;
+            $training->setTeam($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTraining(Training $training): self
+    {
+        if ($this->trainings->contains($training)) {
+            $this->trainings->removeElement($training);
+            // set the owning side to null (unless already changed)
+            if ($training->getTeam() === $this) {
+                $training->setTeam(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Tactic[]
+     */
+    public function getTactics(): Collection
+    {
+        return $this->tactics;
+    }
+
+    public function addTactic(Tactic $tactic): self
+    {
+        if (!$this->tactics->contains($tactic)) {
+            $this->tactics[] = $tactic;
+            $tactic->setTeam($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTactic(Tactic $tactic): self
+    {
+        if ($this->tactics->contains($tactic)) {
+            $this->tactics->removeElement($tactic);
+            // set the owning side to null (unless already changed)
+            if ($tactic->getTeam() === $this) {
+                $tactic->setTeam(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Encounter[]
+     */
+    public function getEncounters(): Collection
+    {
+        return $this->encounters;
+    }
+
+    public function addEncounter(Encounter $encounter): self
+    {
+        if (!$this->encounters->contains($encounter)) {
+            $this->encounters[] = $encounter;
+            $encounter->setTeam($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEncounter(Encounter $encounter): self
+    {
+        if ($this->encounters->contains($encounter)) {
+            $this->encounters->removeElement($encounter);
+            // set the owning side to null (unless already changed)
+            if ($encounter->getTeam() === $this) {
+                $encounter->setTeam(null);
+            }
+        }
+
+        return $this;
+    }
+}
