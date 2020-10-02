@@ -2,11 +2,21 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\TacticRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=TacticRepository::class)
+ * @ApiResource(
+ *     attributes={
+
+ *     },
+ *     normalizationContext={
+            "groups"={"tactics_read"}
+ *     }
+ * )
  */
 class Tactic
 {
@@ -14,83 +24,97 @@ class Tactic
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"tactics_read", "teams_read", "encounters_read"}))
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Groups({"tactics_read", "encounters_read"}))
      */
     private $type;
 
     /**
      * @ORM\ManyToOne(targetEntity=Team::class, inversedBy="tactics")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"tactics_read"}))
      */
     private $team;
 
     /**
      * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"tactics_read"}))
      */
     private $pos1;
 
     /**
      * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"tactics_read"}))
      */
     private $pos2;
 
     /**
      * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"tactics_read"}))
      */
     private $pos3;
 
     /**
      * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"tactics_read"}))
      */
     private $pos4;
 
     /**
      * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"tactics_read"}))
      */
     private $pos5;
 
     /**
      * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"tactics_read"}))
      */
     private $pos6;
 
     /**
      * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"tactics_read"}))
      */
     private $pos7;
 
     /**
      * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"tactics_read"}))
      */
     private $pos8;
 
     /**
      * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"tactics_read"}))
      */
     private $pos9;
 
     /**
      * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"tactics_read"}))
      */
     private $pos10;
 
     /**
      * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"tactics_read"}))
      */
     private $pos11;
 

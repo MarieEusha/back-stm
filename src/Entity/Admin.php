@@ -2,11 +2,21 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\AdminRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=AdminRepository::class)
+ * @ApiResource(
+ *     attributes={
+
+ *     },
+ *     normalizationContext={
+            "groups"={"admins_read"}
+ *     }
+ * )
  */
 class Admin
 {
@@ -14,12 +24,14 @@ class Admin
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"admins_read"})
      */
     private $id;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="admins", cascade={"persist", "remove"}))
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"admins_read"})
      */
     private $user;
 

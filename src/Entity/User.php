@@ -2,14 +2,24 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @ApiResource(
+ *    attributes={
+            "order"={"lastName":"ASC", "firstName":"ASC"}
+ *     },
+ *     normalizationContext={
+            "groups"={"users_read"}
+ *     }
+ * )
  */
 class User implements UserInterface
 {
@@ -17,11 +27,13 @@ class User implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"clubs_read", "users_read", "admins_read", "coachs_read", "players_read", "teams_read", "trainings_read", "trainingMisseds_read", "stats_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Groups({"clubs_read", "users_read", "admins_read", "coachs_read", "players_read", "teams_read", "trainings_read", "trainingMisseds_read"})
      */
     private $email;
 
@@ -38,27 +50,32 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=75)
+     * @Groups({"clubs_read", "users_read", "admins_read", "coachs_read", "players_read", "teams_read", "trainings_read", "trainingMisseds_read", "stats_read"})
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="string", length=75)
+     * @Groups({"clubs_read", "users_read", "admins_read", "coachs_read", "players_read", "teams_read", "trainings_read", "trainingMisseds_read", "stats_read"})
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="date")
+     * @Groups({"clubs_read", "users_read", "admins_read", "coachs_read", "players_read"})
      */
     private $birthday;
 
     /**
      * @ORM\Column(type="string", length=15)
+     * @Groups({"clubs_read", "users_read", "admins_read", "coachs_read", "players_read"})
      */
     private $phone;
 
     /**
      * @ORM\ManyToOne(targetEntity=Club::class, inversedBy="users")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"users_read", "admins_read", "coachs_read", "players_read"})
      */
     private $club;
 

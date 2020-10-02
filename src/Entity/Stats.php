@@ -2,11 +2,21 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\StatsRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=StatsRepository::class)
+ * @ApiResource(
+ *     attributes={
+
+ *     },
+ *     normalizationContext={
+            "groups"={"stats_read"}
+ *     }
+ * )
  */
 class Stats
 {
@@ -14,38 +24,45 @@ class Stats
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"stats_read", "encounters_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"stats_read"})
      */
     private $redcard;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"stats_read"})
      */
     private $yellowCard;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"stats_read"})
      */
     private $passAssist;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"stats_read"})
      */
     private $goal;
 
     /**
      * @ORM\ManyToOne(targetEntity=Encounter::class, inversedBy="stats")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"stats_read"})
      */
     private $encounter;
 
     /**
      * @ORM\ManyToOne(targetEntity=Player::class, inversedBy="stats")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"stats_read"})
      */
     private $player;
 

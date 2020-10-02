@@ -2,13 +2,23 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\PlayerRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=PlayerRepository::class)
+ * @ApiResource(
+ *     attributes={
+
+ *     },
+ *     normalizationContext={
+            "groups"={"players_read"}
+ *     }
+ * )
  */
 class Player
 {
@@ -16,37 +26,44 @@ class Player
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"players_read", "teams_read", "trainings_read", "trainingMisseds_read", "tactics_read", "stats_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"players_read", "tactics_read"})
      */
     private $picture;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"players_read"})
      */
     private $height;
 
     /**
      * @ORM\Column(type="float")
+     * @Groups({"players_read"})
      */
     private $weight;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups({"players_read"})
      */
     private $injured;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="players", cascade={"persist", "remove"}))
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"players_read", "trainings_read", "trainingMisseds_read", "stats_read"})
      */
     private $user;
 
     /**
      * @ORM\ManyToOne(targetEntity=Team::class, inversedBy="players")
+     * @Groups({"players_read"})
      */
     private $team;
 

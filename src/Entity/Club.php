@@ -2,13 +2,18 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ClubRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=ClubRepository::class)
+ * @ApiResource(
+ *     normalizationContext={"groups"={"clubs_read"}}
+ * )
  */
 class Club
 {
@@ -16,21 +21,25 @@ class Club
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"clubs_read", "users_read", "admins_read", "coachs_read", "players_read", "trainings_read", "tactics_read", "encounters_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=75)
+     * @Groups({"clubs_read", "users_read", "admins_read", "coachs_read", "players_read", "trainings_read", "tactics_read", "encounters_read"})
      */
     private $label;
 
     /**
      * @ORM\OneToMany(targetEntity=User::class, mappedBy="club", orphanRemoval=true)
+     * @Groups({"clubs_read"})
      */
     private $users;
 
     /**
      * @ORM\OneToMany(targetEntity=Team::class, mappedBy="club", orphanRemoval=true)
+     * @Groups({"clubs_read"})
      */
     private $teams;
 

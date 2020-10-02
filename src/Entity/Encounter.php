@@ -2,13 +2,23 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\EncounterRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=EncounterRepository::class)
+ * @ApiResource(
+ *     attributes={
+
+ *     },
+ *     normalizationContext={
+            "groups"={"encounters_read"}
+ *     }
+ * )
  */
 class Encounter
 {
@@ -16,38 +26,45 @@ class Encounter
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"encounters_read", "teams_read", "stats_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="date")
+     * @Groups({"encounters_read", "stats_read"})
      */
     private $date;
 
     /**
      * @ORM\Column(type="string", length=75)
+     * @Groups({"encounters_read"})
      */
     private $labelOpposingTeam;
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Groups({"encounters_read"})
      */
     private $categoryOpposingTeam;
 
     /**
      * @ORM\ManyToOne(targetEntity=Team::class, inversedBy="encounters")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"encounters_read"})
      */
     private $team;
 
     /**
      * @ORM\ManyToOne(targetEntity=Tactic::class)
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"encounters_read"})
      */
     private $tactic;
 
     /**
      * @ORM\OneToMany(targetEntity=Stats::class, mappedBy="encounter")
+     * @Groups({"encounters_read"})
      */
     private $stats;
 

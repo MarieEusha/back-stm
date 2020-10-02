@@ -2,13 +2,23 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\TeamRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=TeamRepository::class)
+ * @ApiResource(
+ *     attributes={
+
+ *     },
+ *     normalizationContext={
+            "groups"={"teams_read"}
+ *     }
+ * )
  */
 class Team
 {
@@ -16,47 +26,56 @@ class Team
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"teams_read", "clubs_read", "players_read", "trainings_read", "tactics_read", "encounters_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=75)
+     * @Groups({"teams_read", "clubs_read", "players_read", "trainings_read", "tactics_read", "encounters_read"})
      */
     private $label;
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Groups({"teams_read", "clubs_read", "players_read", "trainings_read", "tactics_read", "encounters_read"})
      */
     private $category;
 
     /**
      * @ORM\ManyToOne(targetEntity=Coach::class)
+     * @Groups({"teams_read"})
      */
     private $coach;
 
     /**
      * @ORM\ManyToOne(targetEntity=Club::class, inversedBy="teams")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"teams_read", "trainings_read", "tactics_read", "encounters_read"})
      */
     private $club;
 
     /**
      * @ORM\OneToMany(targetEntity=Player::class, mappedBy="team")
+     * @Groups({"teams_read"})
      */
     private $players;
 
     /**
      * @ORM\OneToMany(targetEntity=Training::class, mappedBy="team", orphanRemoval=true)
+     * @Groups({"teams_read"})
      */
     private $trainings;
 
     /**
      * @ORM\OneToMany(targetEntity=Tactic::class, mappedBy="team", orphanRemoval=true)
+     * @Groups({"teams_read"})
      */
     private $tactics;
 
     /**
      * @ORM\OneToMany(targetEntity=Encounter::class, mappedBy="team")
+     * @Groups({"teams_read"})
      */
     private $encounters;
 
