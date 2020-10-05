@@ -426,6 +426,5 @@ class AppFixtures extends Fixture
         $filesystem = new Filesystem();
         $filesystem->remove($dir);
         $filesystem->mkdir($dir,0777);
-        //$filesystem->mkdir(sys_get_temp_dir().'/'.random_int(0, 1000));
     }
 }
