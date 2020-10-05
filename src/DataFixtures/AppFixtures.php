@@ -15,6 +15,7 @@ use App\Entity\TrainingMissed;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Faker\Factory;
 
@@ -37,6 +38,7 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
+        $this->purgeImg('public/storage/images');
         $faker = Factory::create('fr_FR');
         // $product = new Product();
         // $manager->persist($product);
@@ -417,5 +419,13 @@ class AppFixtures extends Fixture
         }
 
         $manager->flush();
+    }
+
+    public function purgeImg($dir){
+
+        $filesystem = new Filesystem();
+        $filesystem->remove($dir);
+        $filesystem->mkdir($dir,0777);
+        //$filesystem->mkdir(sys_get_temp_dir().'/'.random_int(0, 1000));
     }
 }
