@@ -31,6 +31,9 @@ class Tactic
     /**
      * @ORM\Column(type="string", length=50)
      * @Groups({"tactics_read", "encounters_read"}))
+     * @Assert\NotBlank(message="Le choix de la tactique est obligatoire")
+     * @Assert\Type(type="string", message="Le choix de la tactique doit être une chaîne de caractères")
+     * @Assert\Length(min="3", max="50", minMessage="Le choix de la tactique doit faire entre 3 et 50 caractéres", maxMessage="Le choix de la tactique doit faire entre 3 et 50 caractéres")
      */
     private $type;
 
@@ -38,6 +41,8 @@ class Tactic
      * @ORM\ManyToOne(targetEntity=Team::class, inversedBy="tactics")
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"tactics_read"}))
+     * @Assert\Type(type="int", message="le choix de l'équipe est un nombre entier")
+     * @Assert\Length(min="1", max="6", minMessage="L'id de l'équipe doit faire entre 1 et 6 chiffres", maxMessage="L'id de l'équipe doit faire entre 1 et 6 chiffres")
      */
     private $team;
 
@@ -45,6 +50,8 @@ class Tactic
      * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"tactics_read"}))
+     * @Assert\Type(type="int", message="la valeur choisie doit être un int")
+     * @Assert\Length(min="1", max="6", minMessage="L'id du joueur doit faire entre 1 et 6 chiffres", maxMessage="L'id du joueur doit faire entre 1 et 6 chiffres")
      */
     private $pos1;
 
@@ -52,6 +59,8 @@ class Tactic
      * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"tactics_read"}))
+     * @Assert\Type(type="int", message="la valeur choisie doit être un int")
+     * @Assert\Length(min="1", max="6", minMessage="L'id du joueur doit faire entre 1 et 6 chiffres", maxMessage="L'id du joueur doit faire entre 1 et 6 chiffres")
      */
     private $pos2;
 
@@ -59,6 +68,8 @@ class Tactic
      * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"tactics_read"}))
+     * @Assert\Type(type="int", message="la valeur choisie doit être un int")
+     * @Assert\Length(min="1", max="6", minMessage="L'id du joueur doit faire entre 1 et 6 chiffres", maxMessage="L'id du joueur doit faire entre 1 et 6 chiffres")
      */
     private $pos3;
 
@@ -66,6 +77,8 @@ class Tactic
      * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"tactics_read"}))
+     * @Assert\Type(type="int", message="la valeur choisie doit être un int")
+     * @Assert\Length(min="1", max="6", minMessage="L'id du joueur doit faire entre 1 et 6 chiffres", maxMessage="L'id du joueur doit faire entre 1 et 6 chiffres")
      */
     private $pos4;
 
@@ -73,6 +86,8 @@ class Tactic
      * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"tactics_read"}))
+     * @Assert\Type(type="int", message="la valeur choisie doit être un int")
+     * @Assert\Length(min="1", max="6", minMessage="L'id du joueur doit faire entre 1 et 6 chiffres", maxMessage="L'id du joueur doit faire entre 1 et 6 chiffres")
      */
     private $pos5;
 
@@ -80,6 +95,8 @@ class Tactic
      * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"tactics_read"}))
+     * @Assert\Type(type="int", message="la valeur choisie doit être un int")
+     * @Assert\Length(min="1", max="6", minMessage="L'id du joueur doit faire entre 1 et 6 chiffres", maxMessage="L'id du joueur doit faire entre 1 et 6 chiffres")
      */
     private $pos6;
 
@@ -87,6 +104,8 @@ class Tactic
      * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"tactics_read"}))
+     * @Assert\Type(type="int", message="la valeur choisie doit être un int")
+     * @Assert\Length(min="1", max="6", minMessage="L'id du joueur doit faire entre 1 et 6 chiffres", maxMessage="L'id du joueur doit faire entre 1 et 6 chiffres")
      */
     private $pos7;
 
@@ -94,6 +113,8 @@ class Tactic
      * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"tactics_read"}))
+     * @Assert\Type(type="int", message="la valeur choisie doit être un int")
+     * @Assert\Length(min="1", max="6", minMessage="L'id du joueur doit faire entre 1 et 6 chiffres", maxMessage="L'id du joueur doit faire entre 1 et 6 chiffres")
      */
     private $pos8;
 
@@ -101,6 +122,8 @@ class Tactic
      * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"tactics_read"}))
+     * @Assert\Type(type="int", message="la valeur choisie doit être un int")
+     * @Assert\Length(min="1", max="6", minMessage="L'id du joueur doit faire entre 1 et 6 chiffres", maxMessage="L'id du joueur doit faire entre 1 et 6 chiffres")
      */
     private $pos9;
 
@@ -108,6 +131,8 @@ class Tactic
      * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"tactics_read"}))
+     * @Assert\Type(type="int", message="la valeur choisie doit être un int")
+     * @Assert\Length(min="1", max="6", minMessage="L'id du joueur doit faire entre 1 et 6 chiffres", maxMessage="L'id du joueur doit faire entre 1 et 6 chiffres")
      */
     private $pos10;
 
@@ -115,6 +140,8 @@ class Tactic
      * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"tactics_read"}))
+     * @Assert\Type(type="int", message="la valeur choisie doit être un int")
+     * @Assert\Length(min="1", max="6", minMessage="L'id du joueur doit faire entre 1 et 6 chiffres", maxMessage="L'id du joueur doit faire entre 1 et 6 chiffres")
      */
     private $pos11;
 

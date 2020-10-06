@@ -34,7 +34,7 @@ class Encounter
     /**
      * @ORM\Column(type="date")
      * @Groups({"encounters_read", "stats_read"})
-     * @Assert\Type(type="DateTime", "message= la date doit être au format YYYY-mm-dd")
+     * @Assert\Type(type="DateTime", message= "la date doit être au format YYYY-mm-dd")
      */
     private $date;
 

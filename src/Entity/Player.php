@@ -34,24 +34,34 @@ class Player
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"players_read", "tactics_read"})
+     * @Assert\NotBlank(message="l'url de l'image est obligatoire")
+     * @Assert\Type(type="string", message="l'url de l'image doit être une chaîne de caractères")
+     * @Assert\Length(min="3", max="255", minMessage="l'url de l'image doit faire entre 3 et 255 caractéres", maxMessage="l'url de l'image doit faire entre 3 et 255 caractéres")
      */
     private $picture;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      * @Groups({"players_read"})
+     * @Assert\NotBlank(message="La taille du joueur est obligatoire")
+     * @Assert\Type(type="int", message="La taille du joueur doit être un nombre entier")
+     * @Assert\Length(min="2", max="3", minMessage="La taille du joueur doit faire entre 2 et 3 chiffres", maxMessage="La taille du joueur doit faire entre 2 et 3 chiffres")
      */
     private $height;
 
     /**
      * @ORM\Column(type="float", nullable=true)
      * @Groups({"players_read"})
+     * @Assert\NotBlank(message="Le poids du joueur est obligatoire")
+     * @Assert\Type(type="float", message="Le poids du joueur doit être un nombre décimal")
+     * @Assert\Length(min="2", max="3", minMessage="Le poids du joueur doit faire entre 2 et 3 chiffres", maxMessage="Le poids du joueur doit faire entre 2 et 3 chiffres")
      */
     private $weight;
 
     /**
      * @ORM\Column(type="boolean")
      * @Groups({"players_read"})
+     * @Assert\NotBlank(message="Le status du joueur est obligatoire")
      */
     private $injured;
 
@@ -59,22 +69,32 @@ class Player
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="players", cascade={"persist", "remove"}))
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"players_read", "trainings_read", "trainingMisseds_read", "stats_read"})
+     * @Assert\NotBlank(message="Les informations du joueur sont obligatoires")
+     * @Assert\Type(type="int", message="les informations du joueurs sont obligatoires")
+     * @Assert\Length(min="1", max="6", minMessage="L'id de l'utilisateur doit faire entre 1 et 6 chiffres", maxMessage="L'id de l'utilisateur doit faire entre 1 et 6 chiffres")
      */
     private $user;
 
     /**
      * @ORM\ManyToOne(targetEntity=Team::class, inversedBy="players")
      * @Groups({"players_read"})
+     * @Assert\NotBlank(message="Les informations de l'équipe sont obligatoires")
+     * @Assert\Type(type="int", message="les informations de l'équipe sont obligatoires")
+     * @Assert\Length(min="1", max="6", minMessage="L'id de l'équipe doit faire entre 1 et 6 chiffres", maxMessage="L'id de l'équipe doit faire entre 1 et 6 chiffres")
      */
     private $team;
 
     /**
      * @ORM\OneToMany(targetEntity=TrainingMissed::class, mappedBy="player")
+     * @Assert\Type(type="int", message="les informations des entraînements manqués sont obligatoires")
+     * @Assert\Length(min="1", max="6", minMessage="L'id de l'entraînement manqué doit faire entre 1 et 6 chiffres", maxMessage="L'id de l'entraînement manqué doit faire entre 1 et 6 chiffres")
      */
     private $trainingMisseds;
 
     /**
      * @ORM\OneToMany(targetEntity=Stats::class, mappedBy="player", orphanRemoval=true)
+     * @Assert\Type(type="int", message="les statistiques du joueur sont obligatoires")
+     * @Assert\Length(min="1", max="6", minMessage="L'id des statistiques du joueur doit faire entre 1 et 6 chiffres", maxMessage="L'id des statistiques du joueur doit faire entre 1 et 6 chiffres")
      */
     private $stats;
 
