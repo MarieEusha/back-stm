@@ -31,7 +31,6 @@ class PlayersWithoutTeamController {
 
     public function __invoke(Club $data)
     {
-        dd($data);
        return $this->playerRepository->findPlayersWithoutTeam($data->getId());
     }
 
