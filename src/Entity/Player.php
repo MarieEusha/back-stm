@@ -58,22 +58,26 @@ class Player
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="players", cascade={"persist", "remove"}))
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"players_read", "trainings_read", "trainingMisseds_read", "stats_read"})
+     * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $user;
 
     /**
      * @ORM\ManyToOne(targetEntity=Team::class, inversedBy="players")
      * @Groups({"players_read"})
+     * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $team;
 
     /**
      * @ORM\OneToMany(targetEntity=TrainingMissed::class, mappedBy="player")
+     * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $trainingMisseds;
 
     /**
      * @ORM\OneToMany(targetEntity=Stats::class, mappedBy="player", orphanRemoval=true)
+     * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $stats;
 

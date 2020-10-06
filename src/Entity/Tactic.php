@@ -15,6 +15,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     },
  *     normalizationContext={
             "groups"={"tactics_read"}
+ *     },
+ *     denormalizationContext={
+            "disable_type_enforcement"=true
  *     }
  * )
  */
@@ -36,84 +39,84 @@ class Tactic
 
     /**
      * @ORM\ManyToOne(targetEntity=Team::class, inversedBy="tactics")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      * @Groups({"tactics_read"}))
      */
     private $team;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Player::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=Player::class, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      * @Groups({"tactics_read"}))
      */
     private $pos1;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Player::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=Player::class, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      * @Groups({"tactics_read"}))
      */
     private $pos2;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Player::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=Player::class, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      * @Groups({"tactics_read"}))
      */
     private $pos3;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Player::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=Player::class, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      * @Groups({"tactics_read"}))
      */
     private $pos4;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Player::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=Player::class, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      * @Groups({"tactics_read"}))
      */
     private $pos5;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Player::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=Player::class, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      * @Groups({"tactics_read"}))
      */
     private $pos6;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Player::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=Player::class, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      * @Groups({"tactics_read"}))
      */
     private $pos7;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Player::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=Player::class, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      * @Groups({"tactics_read"}))
      */
     private $pos8;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Player::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=Player::class, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      * @Groups({"tactics_read"}))
      */
     private $pos9;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Player::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=Player::class, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      * @Groups({"tactics_read"}))
      */
     private $pos10;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Player::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=Player::class, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      * @Groups({"tactics_read"}))
      */
     private $pos11;

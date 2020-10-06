@@ -54,14 +54,14 @@ class Stats
 
     /**
      * @ORM\ManyToOne(targetEntity=Encounter::class, inversedBy="stats")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      * @Groups({"stats_read"})
      */
     private $encounter;
 
     /**
      * @ORM\ManyToOne(targetEntity=Player::class, inversedBy="stats")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      * @Groups({"stats_read"})
      */
     private $player;

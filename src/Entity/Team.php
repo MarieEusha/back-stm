@@ -45,6 +45,7 @@ class Team
     /**
      * @ORM\ManyToOne(targetEntity=Coach::class)
      * @Groups({"teams_read"})
+     * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $coach;
 

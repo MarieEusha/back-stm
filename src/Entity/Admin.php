@@ -31,6 +31,7 @@ class Admin
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="admins", cascade={"persist", "remove"}))
      * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(onDelete="SET NULL")
      * @Groups({"admins_read"})
      */
     private $user;
