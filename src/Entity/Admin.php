@@ -6,6 +6,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\AdminRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=AdminRepository::class)
@@ -32,6 +33,7 @@ class Admin
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="admins", cascade={"persist", "remove"}))
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"admins_read"})
+     * @Assert\NotBlank(message="les informations de l'utilisateur sont obligatoires")
      */
     private $user;
 
