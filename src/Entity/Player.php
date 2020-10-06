@@ -70,7 +70,7 @@ class Player
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"players_read", "trainings_read", "trainingMisseds_read", "stats_read"})
      * @Assert\NotBlank(message="Les informations du joueur sont obligatoires")
-     * @Assert\Type(type="int", message="les informations du joueurs sont obligatoires")
+     * @Assert\Type(type="int", message="la valeur choisie doit être un nombre entier")
      * @Assert\Length(min="1", max="6", minMessage="L'id de l'utilisateur doit faire entre 1 et 6 chiffres", maxMessage="L'id de l'utilisateur doit faire entre 1 et 6 chiffres")
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
@@ -80,7 +80,7 @@ class Player
      * @ORM\ManyToOne(targetEntity=Team::class, inversedBy="players")
      * @Groups({"players_read"})
      * @Assert\NotBlank(message="Les informations de l'équipe sont obligatoires")
-     * @Assert\Type(type="int", message="les informations de l'équipe sont obligatoires")
+     * @Assert\Type(type="int", message="la valeur choisie doit être un nombre entier")
      * @Assert\Length(min="1", max="6", minMessage="L'id de l'équipe doit faire entre 1 et 6 chiffres", maxMessage="L'id de l'équipe doit faire entre 1 et 6 chiffres")
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
@@ -88,7 +88,7 @@ class Player
 
     /**
      * @ORM\OneToMany(targetEntity=TrainingMissed::class, mappedBy="player")
-     * @Assert\Type(type="int", message="les informations des entraînements manqués sont obligatoires")
+     * @Assert\Type(type="int", message="la valeur choisie doit être un nombre entier")
      * @Assert\Length(min="1", max="6", minMessage="L'id de l'entraînement manqué doit faire entre 1 et 6 chiffres", maxMessage="L'id de l'entraînement manqué doit faire entre 1 et 6 chiffres")
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
@@ -96,7 +96,7 @@ class Player
 
     /**
      * @ORM\OneToMany(targetEntity=Stats::class, mappedBy="player", orphanRemoval=true)
-     * @Assert\Type(type="int", message="les statistiques du joueur sont obligatoires")
+     * @Assert\Type(type="int", message="la valeur choisie est un nombre entier")
      * @Assert\Length(min="1", max="6", minMessage="L'id des statistiques du joueur doit faire entre 1 et 6 chiffres", maxMessage="L'id des statistiques du joueur doit faire entre 1 et 6 chiffres")
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
