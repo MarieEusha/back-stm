@@ -19,6 +19,26 @@ class PlayerRepository extends ServiceEntityRepository
         parent::__construct($registry, Player::class);
     }
 
+
+    public function findPlayersWithoutTeam($idClub)
+    {
+            $conn = $this->getEntityManager()->getConnection();
+
+            $sql = '
+                SELECT *
+                FROM player
+                INNER JOIN user ON user.id = player.user_id
+                WHERE user.club_id = :club_id AND player.team_id IS NULL
+            ';
+            $stmt = $conn->prepare($sql);
+            $stmt->execute([
+                'club_id' => $idClub
+            ]);
+            return $stmt->fetchAll();
+    }
+
+
+
     // /**
     //  * @return Player[] Returns an array of Player objects
     //  */

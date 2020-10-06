@@ -2,17 +2,27 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ClubRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  * @ORM\Entity(repositoryClass=ClubRepository::class)
  * @ApiResource(
- *     normalizationContext={"groups"={"clubs_read"}}
+ *     normalizationContext={"groups"={"clubs_read"}},
+ *     denormalizationContext={"disable_type_enforcement"=true},
+ *     itemOperations={"GET", "PUT", "DELETE", "notInTeam"={
+            "method"="get",
+ *          "path"="/clubs/{id}/playersWithoutTeam",
+ *          "controller"="App\Controller\PlayersWithoutTeamController",
+ *
+ *     }}
  * )
  */
 class Club
@@ -28,6 +38,9 @@ class Club
     /**
      * @ORM\Column(type="string", length=75)
      * @Groups({"clubs_read", "users_read", "admins_read", "coachs_read", "players_read", "trainings_read", "tactics_read", "encounters_read"})
+     * @Assert\NotBlank(message="le label est obligatoire")
+     * @Assert\Type(type="string", message="le label doit être du texte")
+     * @Assert\Length(min="3", max="50", minMessage="le nom du club doit faire entre 3 et 50 caractéres", maxMessage="le nom du club doit faire entre 3 et 50 caractéres")
      */
     private $label;
 
@@ -59,8 +72,9 @@ class Club
         return $this->label;
     }
 
-    public function setLabel(string $label): self
+    public function setLabel($label): self
     {
+
         $this->label = $label;
 
         return $this;
