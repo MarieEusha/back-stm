@@ -7,18 +7,24 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity("email", message="cette email est déja utilisé")
  * @ApiResource(
  *    attributes={
             "order"={"lastName":"ASC", "firstName":"ASC"}
  *     },
  *     normalizationContext={
             "groups"={"users_read"}
- *     }
+ *     },
+ *     denormalizationContext={
+ *          "disable_type_enforcement"=true
+ *     },
  * )
  */
 class User implements UserInterface
@@ -34,41 +40,57 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      * @Groups({"clubs_read", "users_read", "admins_read", "coachs_read", "players_read", "teams_read", "trainings_read", "trainingMisseds_read"})
+     * @Assert\NotBlank(message="l'email est obligatoire")
+     * @Assert\Email(message="ce n'est pas un email valide")
      */
     private $email;
 
     /**
      * @ORM\Column(type="json")
+     * @Assert\NotBlank(message="Role de l'utilisateur obligatoire")
      */
     private $roles = [];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Assert\NotBlank(message="Un mot de passe est obligatoire")
+     * @Assert\Length(min="6", max="20", minMessage="le mot de passe doit faire entre 6 et 20 caractéres", maxMessage="le mot de passe doit faire entre 6 et 20 caractéres")
+     * @Assert\Regex(pattern="/^(?=.*[a-z])(?=.*\d).{6,}$/i", message="le mot de passe doit comporter au moins 6 caractères et inclure au moins une lettre et un chiffre")
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=75)
      * @Groups({"clubs_read", "users_read", "admins_read", "coachs_read", "players_read", "teams_read", "trainings_read", "trainingMisseds_read", "stats_read"})
+     * @Assert\NotBlank(message="le nom de famille est obligatoire")
+     * @Assert\Length(min="2", max="75", minMessage="le nom de famille doit faire entre 2 et 75 caractères", maxMessage="le nom de famille doit faire entre 2 et 75 caractères")
+     *
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="string", length=75)
      * @Groups({"clubs_read", "users_read", "admins_read", "coachs_read", "players_read", "teams_read", "trainings_read", "trainingMisseds_read", "stats_read"})
+     * @Assert\NotBlank(message="le prénom est obligatoire")
+     * @Assert\Length(min="2", max="75", minMessage="le prénom doit faire entre 2 et 75 caractères", maxMessage="le prénom doit faire entre 2 et 75 caractères")
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="date")
      * @Groups({"clubs_read", "users_read", "admins_read", "coachs_read", "players_read"})
+     * @Assert\NotBlank(message="le date de naissance est obligatoire")
+     * @Assert\Type(type="DateTime", message="la date doit être au format YYYY-MM-DD")
      */
     private $birthday;
 
     /**
      * @ORM\Column(type="string", length=15)
      * @Groups({"clubs_read", "users_read", "admins_read", "coachs_read", "players_read"})
+     * @Assert\NotBlank(message="Un numéro de téléphone est obligatoire")
+     * @Assert\Length(min="8", max="8", minMessage="le numéro doit comporter 8 chiffres", maxMessage="le numéro doit comporter 8 chiffres")
+     * @Assert\Regex(pattern="/^[0-9]*$/", message="nombre uniquement")
      */
     private $phone;
 
@@ -76,6 +98,7 @@ class User implements UserInterface
      * @ORM\ManyToOne(targetEntity=Club::class, inversedBy="users")
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"users_read", "admins_read", "coachs_read", "players_read"})
+     * @Assert\NotBlank(message="Club de l'utilisateur obligatoire")
      */
     private $club;
 
@@ -208,7 +231,7 @@ class User implements UserInterface
         return $this->birthday;
     }
 
-    public function setBirthday(\DateTimeInterface $birthday): self
+    public function setBirthday($birthday): self
     {
         $this->birthday = $birthday;
 
