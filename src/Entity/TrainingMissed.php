@@ -37,7 +37,7 @@ class TrainingMissed
 
     /**
      * @ORM\ManyToOne(targetEntity=Player::class, inversedBy="trainingMisseds")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      * @Groups({"trainingMisseds_read", "trainings_read"})
      */
     private $player;

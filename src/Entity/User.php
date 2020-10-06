@@ -89,7 +89,7 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=15)
      * @Groups({"clubs_read", "users_read", "admins_read", "coachs_read", "players_read"})
      * @Assert\NotBlank(message="Un numéro de téléphone est obligatoire")
-     * @Assert\Length(min="8", max="8", minMessage="le numéro doit comporter 8 chiffres", maxMessage="le numéro doit comporter 8 chiffres")
+     * @Assert\Length(min="10", max="10", minMessage="le numéro doit comporter 8 chiffres", maxMessage="le numéro doit comporter 8 chiffres")
      * @Assert\Regex(pattern="/^[0-9]*$/", message="nombre uniquement")
      */
     private $phone;
@@ -104,16 +104,19 @@ class User implements UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity=Admin::class, mappedBy="user", orphanRemoval=true)
+     * @ORM\joinColumn(onDelete="SET NULL")
      */
     private $admins;
 
     /**
      * @ORM\OneToMany(targetEntity=Coach::class, mappedBy="user", orphanRemoval=true)
+     * @ORM\joinColumn(onDelete="SET NULL")
      */
     private $coaches;
 
     /**
      * @ORM\OneToMany(targetEntity=Player::class, mappedBy="user", orphanRemoval=true)
+     * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $players;
 

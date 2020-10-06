@@ -32,6 +32,7 @@ class Coach
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="coaches", cascade={"persist", "remove"}))
      * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(onDelete="SET NULL")
      * @Groups({"coachs_read"})
      * @Assert\NotBlank(message="les informations de l'utilisateur sont obligatoires")
      */
