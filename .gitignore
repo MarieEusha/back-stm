@@ -9,6 +9,7 @@
 /src/.preload.php
 /var/
 /vendor/
+composer.lock
 ###< symfony/framework-bundle ###
 
 ###> lexik/jwt-authentication-bundle ###
