@@ -8,6 +8,7 @@ use App\Entity\Coach;
 use App\Entity\Coaching;
 use App\Entity\Encounter;
 use App\Entity\Player;
+use App\Entity\Stats;
 use App\Entity\Tactic;
 use App\Entity\Team;
 use App\Entity\Training;
@@ -347,6 +348,11 @@ class AppFixtures extends Fixture
                     $randomPlayer = $faker->randomElement($arrPlayersTeam);
                     $keyRandomPlayer = array_search($randomPlayer, $arrPlayersTeam);
                     array_splice($arrPlayersTeam, $keyRandomPlayer, 1);
+
+                    $statByPlayer = array();
+                    $this->stating($manager, $randomPlayer, $statByPlayer);
+                    //verif si tabStats et zeroremise, recup player pour match
+
                     $tactic->setPos1($randomPlayer);
                     $randomPlayer = $faker->randomElement($arrPlayersTeam);
                     $keyRandomPlayer = array_search($randomPlayer, $arrPlayersTeam);
@@ -426,5 +432,29 @@ class AppFixtures extends Fixture
         $filesystem = new Filesystem();
         $filesystem->remove($dir);
         $filesystem->mkdir($dir,0777);
+    }
+
+    public function stating($manager, $player, $tabStatByPlayer)
+    {
+        $stats = new Stats();
+        $stats = $this->isIt($stats, "redCard", 1);
+        $stats = $this->isIt($stats, "yellowCard", 2);
+        $stats = $this->isIt($stats, "passAssist", 5);
+        $stats = $this->isIt($stats, "goal", 5);
+        $stats->setPlayer($player);
+        $manager->persist($stats);
+        $tabStatByPlayer[] = $stats;
+    }
+
+    public function isIt($stats, $statLabel, $limit){
+        $isIt = rand(0,1);
+        $method = "set".ucfirst(($statLabel));
+        if($isIt == 1){
+            $stats->$method(rand(0,$limit));
+        }
+        else {
+            $stats->$method(0);
+        }
+        return $stats;
     }
 }
