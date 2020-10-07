@@ -59,20 +59,16 @@ class Training
 
     /**
      * @ORM\ManyToOne(targetEntity=Team::class, inversedBy="trainings")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      * @Groups({"trainings_read"})
      * @Assert\NotBlank(message="Les informations de l'équipe sont obligatoires")
-     * @Assert\Type(type="int", message="le choix de l'équipe est un nombre entier")
-     * @Assert\Length(min="1", max="6", minMessage="L'id de l'équipe doit faire entre 1 et 6 chiffres", maxMessage="L'id de l'équipe doit faire entre 1 et 6 chiffres")
      */
     private $team;
 
     /**
      * @ORM\OneToMany(targetEntity=TrainingMissed::class, mappedBy="training")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      * @Groups({"trainings_read"})
-     * @Assert\NotBlank(message="Les informations de l'entraînement manqués sont obligatoires")
-     * @Assert\Type(type="int", message="la valeur choisie doit être un nombre entier")
-     * @Assert\Length(min="1", max="6", minMessage="L'id de l'entraînement manqué doit faire entre 1 et 6 chiffres", maxMessage="L'id de l'entraînement manqué doit faire entre 1 et 6 chiffres")
      */
     private $trainingMisseds;
 

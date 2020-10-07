@@ -74,6 +74,7 @@ class Stats
     /**
      * @ORM\ManyToOne(targetEntity=Player::class, inversedBy="stats")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
+     * @Assert\NotBlank(message="Les informations de du joueur sont obligatoires")
      * @Groups({"stats_read"})
      */
     private $player;
