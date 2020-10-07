@@ -66,6 +66,7 @@ class Team
     /**
      * @ORM\OneToMany(targetEntity=Player::class, mappedBy="team")
      * @Groups({"teams_read"})
+     * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $players;
 

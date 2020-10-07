@@ -58,7 +58,7 @@ class Encounter
 
     /**
      * @ORM\ManyToOne(targetEntity=Team::class, inversedBy="encounters")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      * @Groups({"encounters_read"})
      * @Assert\NotBlank(message="la sélection de l'équipe est obligatoire")
      */
@@ -66,7 +66,7 @@ class Encounter
 
     /**
      * @ORM\ManyToOne(targetEntity=Tactic::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      * @Groups({"encounters_read"})
      * @Assert\NotBlank(message="la sélection de la tactique est obligatoire")
      */

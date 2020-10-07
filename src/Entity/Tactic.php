@@ -49,77 +49,77 @@ class Tactic
     private $team;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Player::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      * @Groups({"tactics_read"}))
      */
     private $pos1;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Player::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      * @Groups({"tactics_read"}))
      */
     private $pos2;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Player::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      * @Groups({"tactics_read"}))
      */
     private $pos3;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Player::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      * @Groups({"tactics_read"}))
      */
     private $pos4;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Player::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      * @Groups({"tactics_read"}))
      */
     private $pos5;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Player::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      * @Groups({"tactics_read"}))
      */
     private $pos6;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Player::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      * @Groups({"tactics_read"}))
      */
     private $pos7;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Player::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      * @Groups({"tactics_read"}))
      */
     private $pos8;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Player::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      * @Groups({"tactics_read"}))
      */
     private $pos9;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Player::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      * @Groups({"tactics_read"}))
      */
     private $pos10;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Player::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      * @Groups({"tactics_read"}))
      */

@@ -31,7 +31,7 @@ class TrainingMissed
 
     /**
      * @ORM\ManyToOne(targetEntity=Training::class, inversedBy="trainingMisseds")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      * @Groups({"trainingMisseds_read"})
      * @Assert\NotBlank(message="Les informations de l'entraînement sont obligatoires")
      */

@@ -67,7 +67,7 @@ class Training
 
     /**
      * @ORM\OneToMany(targetEntity=TrainingMissed::class, mappedBy="training")
-     * @ORM\JoinColumn(onDelete="CASCADE")
+     * @ORM\JoinColumn(onDelete="SET NULL")
      * @Groups({"trainings_read"})
      */
     private $trainingMisseds;
