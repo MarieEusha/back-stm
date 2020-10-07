@@ -16,10 +16,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @UniqueEntity("label", message="Ce nom d'équipe est déjà utilisé")
  * @ApiResource(
  *     attributes={
-
  *     },
  *     normalizationContext={
-            "groups"={"teams_read"}
+ *       "groups"={"teams_read"}
  *     }
  * )
  */
