@@ -8,6 +8,7 @@ use App\Entity\Coach;
 use App\Entity\Coaching;
 use App\Entity\Encounter;
 use App\Entity\Player;
+use App\Entity\Stats;
 use App\Entity\Tactic;
 use App\Entity\Team;
 use App\Entity\Training;
@@ -328,6 +329,7 @@ class AppFixtures extends Fixture
                     $playerTeam = $playerTeam5;
                 }
 
+                $selectedPlayer = array();
                 $tactics = array();
                 for ($t = 1; $t <= 3; $t++) {
                     if ($t == 1){
@@ -344,49 +346,86 @@ class AppFixtures extends Fixture
                     $tactic->setTeam($team);
                     $tactic->setType($type);
 
+                    //purge de list joueur selectionnés
+                    $selectedPlayer = array();
+
                     $randomPlayer = $faker->randomElement($arrPlayersTeam);
                     $keyRandomPlayer = array_search($randomPlayer, $arrPlayersTeam);
                     array_splice($arrPlayersTeam, $keyRandomPlayer, 1);
+
+                    //ajout stats
                     $tactic->setPos1($randomPlayer);
+                    $selectedPlayer[] = $randomPlayer;
+
                     $randomPlayer = $faker->randomElement($arrPlayersTeam);
                     $keyRandomPlayer = array_search($randomPlayer, $arrPlayersTeam);
                     array_splice($arrPlayersTeam, $keyRandomPlayer, 1);
+                    //ajout stats
                     $tactic->setPos2($randomPlayer);
+                    $selectedPlayer[] = $randomPlayer;
+
                     $randomPlayer = $faker->randomElement($arrPlayersTeam);
                     $keyRandomPlayer = array_search($randomPlayer, $arrPlayersTeam);
                     array_splice($arrPlayersTeam, $keyRandomPlayer, 1);
-                    $tactic->setPos3($randomPlayer);$randomPlayer = $faker->randomElement($arrPlayersTeam);
+                    //ajout stats
+                    $tactic->setPos3($randomPlayer);
+                    $selectedPlayer[] = $randomPlayer;
+
+                    $randomPlayer = $faker->randomElement($arrPlayersTeam);
                     $keyRandomPlayer = array_search($randomPlayer, $arrPlayersTeam);
                     array_splice($arrPlayersTeam, $keyRandomPlayer, 1);
+                    //ajout stats
                     $tactic->setPos4($randomPlayer);
+                    $selectedPlayer[] = $randomPlayer;
+
                     $randomPlayer = $faker->randomElement($arrPlayersTeam);
                     $keyRandomPlayer = array_search($randomPlayer, $arrPlayersTeam);
                     array_splice($arrPlayersTeam, $keyRandomPlayer, 1);
+                    //ajout stats
                     $tactic->setPos5($randomPlayer);
+                    $selectedPlayer[] = $randomPlayer;
+
                     $randomPlayer = $faker->randomElement($arrPlayersTeam);
                     $keyRandomPlayer = array_search($randomPlayer, $arrPlayersTeam);
                     array_splice($arrPlayersTeam, $keyRandomPlayer, 1);
+                    //ajout stats
                     $tactic->setPos6($randomPlayer);
+                    $selectedPlayer[] = $randomPlayer;
+
                     $randomPlayer = $faker->randomElement($arrPlayersTeam);
                     $keyRandomPlayer = array_search($randomPlayer, $arrPlayersTeam);
                     array_splice($arrPlayersTeam, $keyRandomPlayer, 1);
+                    //ajout stats
                     $tactic->setPos7($randomPlayer);
+                    $selectedPlayer[] = $randomPlayer;
+
                     $randomPlayer = $faker->randomElement($arrPlayersTeam);
                     $keyRandomPlayer = array_search($randomPlayer, $arrPlayersTeam);
                     array_splice($arrPlayersTeam, $keyRandomPlayer, 1);
+                    //ajout stats
                     $tactic->setPos8($randomPlayer);
+                    $selectedPlayer[] = $randomPlayer;
+
                     $randomPlayer = $faker->randomElement($arrPlayersTeam);
                     $keyRandomPlayer = array_search($randomPlayer, $arrPlayersTeam);
                     array_splice($arrPlayersTeam, $keyRandomPlayer, 1);
+                    //ajout stats
                     $tactic->setPos9($randomPlayer);
+                    $selectedPlayer[] = $randomPlayer;
+
                     $randomPlayer = $faker->randomElement($arrPlayersTeam);
                     $keyRandomPlayer = array_search($randomPlayer, $arrPlayersTeam);
                     array_splice($arrPlayersTeam, $keyRandomPlayer, 1);
+                    //ajout stats
                     $tactic->setPos10($randomPlayer);
+                    $selectedPlayer[] = $randomPlayer;
+
                     $randomPlayer = $faker->randomElement($arrPlayersTeam);
                     $keyRandomPlayer = array_search($randomPlayer, $arrPlayersTeam);
                     array_splice($arrPlayersTeam, $keyRandomPlayer, 1);
+                    //ajout stats
                     $tactic->setPos11($randomPlayer);
+                    $selectedPlayer[] = $randomPlayer;
 
                     $manager->persist($tactic);
                     $tactics[] = $tactic;
@@ -409,6 +448,19 @@ class AppFixtures extends Fixture
                     $match->setTactic($faker->randomElement($tactics));
 
                     $manager->persist($match);
+
+                    $tabStats = array();
+                    foreach($selectedPlayer as $player){
+
+                        $tabStat[] = $this->stating($player, $match);
+                       /* $stats->setEncounter($match);
+                        $manager->persist($stats);*/
+                    }
+
+                    foreach($tabStat as $stats){
+                        $manager->persist($stats);
+                    }
+
                     $matchs[] = $match;
                 }
 
@@ -426,5 +478,29 @@ class AppFixtures extends Fixture
         $filesystem = new Filesystem();
         $filesystem->remove($dir);
         $filesystem->mkdir($dir,0777);
+    }
+
+    public function stating($player, $match)
+    {
+        $stats = new Stats();
+        $stats = $this->isIt($stats, "redCard", 1);
+        $stats = $this->isIt($stats, "yellowCard", 2);
+        $stats = $this->isIt($stats, "passAssist", 5);
+        $stats = $this->isIt($stats, "goal", 5);
+        $stats->setEncounter($match);
+        $stats->setPlayer($player);
+        return $stats;
+    }
+
+    public function isIt($stats, $statLabel, $limit){
+        $isIt = rand(0,1);
+        $method = "set".ucfirst(($statLabel));
+        if($isIt == 1){
+            $stats->$method(rand(0,$limit));
+        }
+        else {
+            $stats->$method(0);
+        }
+        return $stats;
     }
 }
