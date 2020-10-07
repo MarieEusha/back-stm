@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=TeamRepository::class)
@@ -33,12 +34,15 @@ class Team
     /**
      * @ORM\Column(type="string", length=75)
      * @Groups({"teams_read", "clubs_read", "players_read", "trainings_read", "tactics_read", "encounters_read"})
+     * @Assert\NotBlank(message="Un nom d'équipe est obligatoire")
+     * @Assert\Length(min="2", max="75", minMessage="Le nom d'équipe doit être compris entre 2 et 75 caractéres", maxMessage="Le nom d'équipe doit être compris entre 2 et 75 caractéres")
      */
     private $label;
 
     /**
      * @ORM\Column(type="string", length=50)
      * @Groups({"teams_read", "clubs_read", "players_read", "trainings_read", "tactics_read", "encounters_read"})
+     * @Assert\Choice({"Cadet", "Junior", "Senior"})
      */
     private $category;
 
