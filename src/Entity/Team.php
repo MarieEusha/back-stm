@@ -7,19 +7,19 @@ use App\Repository\TeamRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=TeamRepository::class)
- * @UniqueEntity("label", message="Ce nom d'équipe est déja utilisé")
+ * @UniqueEntity("label", message="Ce nom d'équipe est déjà utilisé")
  * @ApiResource(
  *     attributes={
-
  *     },
  *     normalizationContext={
-            "groups"={"teams_read"}
+ *       "groups"={"teams_read"}
  *     }
  * )
  */
@@ -44,7 +44,7 @@ class Team
     /**
      * @ORM\Column(type="string", length=50)
      * @Groups({"teams_read", "clubs_read", "players_read", "trainings_read", "tactics_read", "encounters_read"})
-     * @Assert\NotBlank(message="La categorie d'une équipe est obligatoire")
+     * @Assert\NotBlank(message="Une catégorie est obligatoire")
      * @Assert\Choice({"Cadet", "Junior", "Senior"})
      */
     private $category;
@@ -66,6 +66,7 @@ class Team
     /**
      * @ORM\OneToMany(targetEntity=Player::class, mappedBy="team")
      * @Groups({"teams_read"})
+     * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $players;
 

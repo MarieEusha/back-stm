@@ -6,15 +6,19 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\StatsRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass=StatsRepository::class)
+ * @ORM\Entity(repositoryClass="App\Repository\StatsRepository", repositoryClass=StatsRepository::class)
  * @ApiResource(
  *     attributes={
 
  *     },
  *     normalizationContext={
             "groups"={"stats_read"}
+ *     },
+ *     denormalizationContext={
+ *          "disable_type_enforcement"=true
  *     }
  * )
  */
@@ -31,24 +35,32 @@ class Stats
     /**
      * @ORM\Column(type="integer")
      * @Groups({"stats_read"})
+     * @Assert\Type(type="integer", message="le nombre de carton rouge doit être un chiffre entier")
+     * @Assert\PositiveOrZero(message="le nombre de carton rouge doit être un chiffre entier égale ou supérieur à 0")
      */
-    private $redcard;
+    private $redCard;
 
     /**
      * @ORM\Column(type="integer")
      * @Groups({"stats_read"})
+     * @Assert\Type(type="integer", message="le nombre de carton rouge doit être un chiffre entier")
+     * @Assert\PositiveOrZero(message="le nombre de carton rouge doit être un chiffre entier égale ou supérieur à 0")
      */
     private $yellowCard;
 
     /**
      * @ORM\Column(type="integer")
      * @Groups({"stats_read"})
+     * @Assert\Type(type="integer", message="le nombre de carton rouge doit être un chiffre entier")
+     * @Assert\PositiveOrZero(message="le nombre de carton rouge doit être un chiffre entier égale ou supérieur à 0")
      */
     private $passAssist;
 
     /**
      * @ORM\Column(type="integer")
      * @Groups({"stats_read"})
+     * @Assert\Type(type="integer", message="le nombre de carton rouge doit être un chiffre entier")
+     * @Assert\PositiveOrZero(message="le nombre de carton rouge doit être un chiffre entier égale ou supérieur à 0")
      */
     private $goal;
 
@@ -62,6 +74,7 @@ class Stats
     /**
      * @ORM\ManyToOne(targetEntity=Player::class, inversedBy="stats")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
+     * @Assert\NotBlank(message="Les informations de du joueur sont obligatoires")
      * @Groups({"stats_read"})
      */
     private $player;
@@ -71,14 +84,14 @@ class Stats
         return $this->id;
     }
 
-    public function getRedcard(): ?int
+    public function getRedCard(): ?int
     {
-        return $this->redcard;
+        return $this->redCard;
     }
 
-    public function setRedcard(int $redcard): self
+    public function setRedcard( $redCard): self
     {
-        $this->redcard = $redcard;
+        $this->redCard = $redCard;
 
         return $this;
     }
@@ -88,7 +101,7 @@ class Stats
         return $this->yellowCard;
     }
 
-    public function setYellowCard(int $yellowCard): self
+    public function setYellowCard( $yellowCard): self
     {
         $this->yellowCard = $yellowCard;
 
@@ -100,7 +113,7 @@ class Stats
         return $this->passAssist;
     }
 
-    public function setPassAssist(int $passAssist): self
+    public function setPassAssist( $passAssist): self
     {
         $this->passAssist = $passAssist;
 
@@ -112,7 +125,7 @@ class Stats
         return $this->goal;
     }
 
-    public function setGoal(int $goal): self
+    public function setGoal( $goal): self
     {
         $this->goal = $goal;
 

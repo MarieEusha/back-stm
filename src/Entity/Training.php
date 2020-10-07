@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=TrainingRepository::class)
@@ -33,30 +34,40 @@ class Training
     /**
      * @ORM\Column(type="date")
      * @Groups({"trainings_read", "trainingMisseds_read"})
+     * @Assert\NotBlank(message="la date est obligatoire")
+     * @Assert\Type(type="DateTime", message= "la date doit être au format YYYY-mm-dd")
      */
     private $date;
 
     /**
      * @ORM\Column(type="string", length=50)
      * @Groups({"trainings_read", "trainingMisseds_read"})
+     * @Assert\NotBlank(message="le label est obligatoire")
+     * @Assert\Type(type="string", message="le label doit être une chaîne de caractères")
+     * @Assert\Length(min="3", max="50", minMessage="le nom de l'entraînement doit faire entre 3 et 50 caractères", maxMessage="le nom de l'entraînement doit faire entre 3 et 50 caractéres")
      */
     private $label;
 
     /**
      * @ORM\Column(type="text")
      * @Groups({"trainings_read"})
+     * @Assert\NotBlank(message="la description est obligatoire")
+     * @Assert\Type(type="string", message="la description doit être un texte")
+     * @Assert\Length(min="3", max="700", minMessage="le nom de l'entraînement doit faire entre 3 et 700 caractères", maxMessage="le nom de l'entraînement doit faire entre 3 et 700 caractéres")
      */
     private $description;
 
     /**
      * @ORM\ManyToOne(targetEntity=Team::class, inversedBy="trainings")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      * @Groups({"trainings_read"})
+     * @Assert\NotBlank(message="Les informations de l'équipe sont obligatoires")
      */
     private $team;
 
     /**
      * @ORM\OneToMany(targetEntity=TrainingMissed::class, mappedBy="training")
+     * @ORM\JoinColumn(onDelete="SET NULL")
      * @Groups({"trainings_read"})
      */
     private $trainingMisseds;

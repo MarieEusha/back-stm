@@ -6,6 +6,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\TrainingMissedRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=TrainingMissedRepository::class)
@@ -30,8 +31,9 @@ class TrainingMissed
 
     /**
      * @ORM\ManyToOne(targetEntity=Training::class, inversedBy="trainingMisseds")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      * @Groups({"trainingMisseds_read"})
+     * @Assert\NotBlank(message="Les informations de l'entraînement sont obligatoires")
      */
     private $training;
 
@@ -39,6 +41,7 @@ class TrainingMissed
      * @ORM\ManyToOne(targetEntity=Player::class, inversedBy="trainingMisseds")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      * @Groups({"trainingMisseds_read", "trainings_read"})
+     * @Assert\NotBlank(message="les informations du joueur sont obligatoires")
      */
     private $player;
 

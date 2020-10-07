@@ -6,6 +6,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\CoachRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CoachRepository::class)
@@ -33,6 +34,7 @@ class Coach
      * @ORM\JoinColumn(nullable=false)
      * @ORM\JoinColumn(onDelete="SET NULL")
      * @Groups({"coachs_read"})
+     * @Assert\NotBlank(message="les informations de l'utilisateur sont obligatoires")
      */
     private $user;
 

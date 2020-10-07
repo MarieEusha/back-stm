@@ -6,6 +6,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\TacticRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=TacticRepository::class)
@@ -34,6 +35,9 @@ class Tactic
     /**
      * @ORM\Column(type="string", length=50)
      * @Groups({"tactics_read", "encounters_read"}))
+     * @Assert\NotBlank(message="Le choix de la tactique est obligatoire")
+     * @Assert\Type(type="string", message="Le choix de la tactique doit être une chaîne de caractères")
+     * @Assert\Length(min="3", max="50", minMessage="Le choix de la tactique doit faire entre 3 et 50 caractéres", maxMessage="Le choix de la tactique doit faire entre 3 et 50 caractéres")
      */
     private $type;
 
@@ -45,77 +49,77 @@ class Tactic
     private $team;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Player::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      * @Groups({"tactics_read"}))
      */
     private $pos1;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Player::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      * @Groups({"tactics_read"}))
      */
     private $pos2;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Player::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      * @Groups({"tactics_read"}))
      */
     private $pos3;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Player::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      * @Groups({"tactics_read"}))
      */
     private $pos4;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Player::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      * @Groups({"tactics_read"}))
      */
     private $pos5;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Player::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      * @Groups({"tactics_read"}))
      */
     private $pos6;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Player::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      * @Groups({"tactics_read"}))
      */
     private $pos7;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Player::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      * @Groups({"tactics_read"}))
      */
     private $pos8;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Player::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      * @Groups({"tactics_read"}))
      */
     private $pos9;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Player::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      * @Groups({"tactics_read"}))
      */
     private $pos10;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Player::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      * @Groups({"tactics_read"}))
      */

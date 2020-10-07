@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=EncounterRepository::class)
@@ -33,32 +34,41 @@ class Encounter
     /**
      * @ORM\Column(type="date")
      * @Groups({"encounters_read", "stats_read"})
+     * @Assert\Type(type="DateTime", message= "la date doit être au format YYYY-mm-dd")
      */
     private $date;
 
     /**
      * @ORM\Column(type="string", length=75)
      * @Groups({"encounters_read"})
+     * @Assert\NotBlank(message="le label est obligatoire")
+     * @Assert\Type(type="string", message="le label doit être une chaîne de caractères")
+     * @Assert\Length(min="3", max="50", minMessage="le nom de l'équipe adverse doit faire entre 3 et 50 caractéres", maxMessage="le nom de l'équipe adverse doit faire entre 3 et 50 caractéres")
      */
     private $labelOpposingTeam;
 
     /**
      * @ORM\Column(type="string", length=50)
      * @Groups({"encounters_read"})
+     * @Assert\NotBlank(message="la catégorie est obligatoire")
+     * @Assert\Type(type="string", message="la catégorie doit être une chaîne de caractères")
+     * @Assert\Length(min="3", max="50", minMessage="la catégorie de l'équipe adverse doit faire entre 3 et 50 caractéres", maxMessage="la catégorie de l'équipe adverse doit faire entre 3 et 50 caractéres")
      */
     private $categoryOpposingTeam;
 
     /**
      * @ORM\ManyToOne(targetEntity=Team::class, inversedBy="encounters")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      * @Groups({"encounters_read"})
+     * @Assert\NotBlank(message="la sélection de l'équipe est obligatoire")
      */
     private $team;
 
     /**
      * @ORM\ManyToOne(targetEntity=Tactic::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      * @Groups({"encounters_read"})
+     * @Assert\NotBlank(message="la sélection de la tactique est obligatoire")
      */
     private $tactic;
 
