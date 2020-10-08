@@ -62,6 +62,15 @@ class Club
         $this->teams = new ArrayCollection();
     }
 
+    public function getTotalCoaches(): int{
+        return array_reduce($this->getUsers()->toArray(), function($totalByRole, $user){
+            $totalByRole = array("coaches", "players");
+            if($user->getRole()==""){
+
+            }
+        });
+    }
+
     public function getId(): ?int
     {
         return $this->id;
