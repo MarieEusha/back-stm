@@ -90,16 +90,15 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=15)
      * @Groups({"clubs_read", "users_read", "admins_read", "coachs_read", "players_read"})
      * @Assert\NotBlank(message="Un numéro de téléphone est obligatoire")
-     * @Assert\Length(min="10", max="10", minMessage="le numéro doit comporter 8 chiffres", maxMessage="le numéro doit comporter 8 chiffres")
+     * @Assert\Length(min=10, max=10, exactMessage="Le numéro doit faire exactement 10 chiffres")
      * @Assert\Regex(pattern="/^[0-9]*$/", message="nombre uniquement")
      */
     private $phone;
 
     /**
      * @ORM\ManyToOne(targetEntity=Club::class, inversedBy="users")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      * @Groups({"users_read", "admins_read", "coachs_read", "players_read"})
-     * @Assert\NotBlank(message="Club de l'utilisateur obligatoire")
      */
     private $club;
 
