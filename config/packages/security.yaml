@@ -47,7 +47,7 @@ security:
     access_control:
         - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/admins, roles: IS_AUTHENTICATED_FULLY }
-        - { path: ^/api/clubs, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/clubs, roles: IS_AUTHENTICATED_FULLY, methods: [GET, DELETE, PUT] }
         - { path: ^/api/coaches, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/api/encounters, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/api/players, roles: IS_AUTHENTICATED_FULLY }
