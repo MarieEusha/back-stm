@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\User;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ClubRepository;
@@ -18,11 +19,11 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *     normalizationContext={"groups"={"clubs_read"}},
  *     denormalizationContext={"disable_type_enforcement"=true},
  *     itemOperations={"GET", "PUT", "DELETE", "notInTeam"={
-            "method"="get",
+ *          "method"="get",
  *          "path"="/clubs/{id}/playersWithoutTeam",
- *          "controller"="App\Controller\PlayersWithoutTeamController",
- *
- *     }}
+ *          "controller"="App\Controller\PlayersWithoutTeamController"
+ *      }
+ *    }
  * )
  */
 class Club
@@ -60,6 +61,34 @@ class Club
     {
         $this->users = new ArrayCollection();
         $this->teams = new ArrayCollection();
+    }
+
+    /**
+     * permet de retourner le nombre de coach et player dans une equipe
+     * @Groups({"clubs_read"})
+     * @return int[]
+     */
+    public function getTotalByRoles(): array {
+        $totalByRole = array("nbCoaches" => 0, "nbPlayers" => 0);
+        foreach($this->getusers()->toArray() as $user){
+            $roles = $user->getRoles();
+            if($roles[0] == "ROLE_COACH"){
+                $totalByRole["nbCoaches"] ++;
+            }
+            else if ($roles[0] == "ROLE_PLAYER"){
+                $totalByRole["nbPlayers"] ++;
+            }
+        }
+        return $totalByRole;
+    }
+
+    /**
+     * permet de retourner le nombre d'équipe d'un club
+     * @Groups({"clubs_read"})
+     * @return int
+     */
+    public function getTotalTeams(): int {
+        return count($this->getTeams()->toArray());
     }
 
     public function getId(): ?int
