@@ -13,7 +13,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=TeamRepository::class)
- * @UniqueEntity("label", message="Ce nom d'équipe est déjà utilisé")
  * @ApiResource(
  *     attributes={
  *     },
@@ -28,13 +27,13 @@ class Team
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"teams_read", "clubs_read", "players_read", "trainings_read", "tactics_read", "encounters_read"})
+     * @Groups({"teams_read", "clubs_read", "players_read", "trainings_read", "tactics_read", "encounters_read", "coachs_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=75)
-     * @Groups({"teams_read", "clubs_read", "players_read", "trainings_read", "tactics_read", "encounters_read"})
+     * @Groups({"teams_read", "clubs_read", "players_read", "trainings_read", "tactics_read", "encounters_read", "coachs_read"})
      * @Assert\NotBlank(message="Un nom d'équipe est obligatoire")
      * @Assert\Length(min="2", max="75", minMessage="Le nom d'équipe doit être compris entre 2 et 75 caractéres", maxMessage="Le nom d'équipe doit être compris entre 2 et 75 caractéres")
      */
@@ -42,7 +41,7 @@ class Team
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Groups({"teams_read", "clubs_read", "players_read", "trainings_read", "tactics_read", "encounters_read"})
+     * @Groups({"teams_read", "clubs_read", "players_read", "trainings_read", "tactics_read", "encounters_read", "coachs_read"})
      * @Assert\NotBlank(message="Une catégorie est obligatoire")
      * @Assert\Choice({"Cadet", "Junior", "Senior"})
      */
