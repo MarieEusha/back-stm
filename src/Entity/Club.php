@@ -19,11 +19,11 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *     normalizationContext={"groups"={"clubs_read"}},
  *     denormalizationContext={"disable_type_enforcement"=true},
  *     itemOperations={"GET", "PUT", "DELETE", "notInTeam"={
-            "method"="get",
+ *          "method"="get",
  *          "path"="/clubs/{id}/playersWithoutTeam",
- *          "controller"="App\Controller\PlayersWithoutTeamController",
- *
- *     }}
+ *          "controller"="App\Controller\PlayersWithoutTeamController"
+ *      }
+ *    }
  * )
  */
 class Club

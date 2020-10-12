@@ -19,6 +19,20 @@ class TeamRepository extends ServiceEntityRepository
         parent::__construct($registry, Team::class);
     }
 
+    public function findAllTeamsByCoachId($idCoach){
+        $cnx = $this->getEntityManager()->getConnection();
+
+        $sql = '
+            SELECT *
+            FROM team
+            WHERE coach_id = :id_coach
+        ';
+        $stmt = $cnx->prepare($sql);
+        $stmt->execute([
+            'id_coach' => $idCoach
+        ]);
+        return $stmt->fetchAll();
+    }
     // /**
     //  * @return Team[] Returns an array of Team objects
     //  */

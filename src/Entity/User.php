@@ -97,9 +97,8 @@ class User implements UserInterface
 
     /**
      * @ORM\ManyToOne(targetEntity=Club::class, inversedBy="users")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      * @Groups({"users_read", "admins_read", "coachs_read", "players_read"})
-     * @Assert\NotBlank(message="Club de l'utilisateur obligatoire")
      */
     private $club;
 

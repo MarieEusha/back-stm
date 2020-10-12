@@ -15,7 +15,12 @@ class JwtCreatedUser
         //dd($user->getClub()->getId());
         $data['firstName'] = $user->getFirstName();
         $data['lastName'] = $user->getLastName();
-        $data['club'] = $user->getClub()->getId();
+        $data['id'] = $user->getId();
+        if (!empty($user->getClub())){
+            $data['club'] = $user->getClub()->getId();
+        }else{
+            $data['club'] = null;
+        }
 
         $event->setData($data);
     }
