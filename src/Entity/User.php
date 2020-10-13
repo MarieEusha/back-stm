@@ -98,7 +98,7 @@ class User implements UserInterface
     /**
      * @ORM\ManyToOne(targetEntity=Club::class, inversedBy="users")
      * @ORM\JoinColumn(nullable=true)
-     * @Groups({"users_read", "admins_read", "coachs_read", "players_read"})
+     * @Groups({"users_read", "admins_read", "coachs_read", "players_read", "stats_read"})
      */
     private $club;
 
