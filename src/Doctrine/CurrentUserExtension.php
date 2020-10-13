@@ -28,18 +28,24 @@ class CurrentUserExtension implements QueryCollectionExtensionInterface, QueryIt
 
         //Obtenir le user connecté
         $user = $this->security->getUser();
+        $club = $user->getClub();
         //Si on demande des stats ou des players/coaches alors agir sur la requête pour qu'elle tienne compte de l'utilisateur connecté
-        if (($resourceClass === Player::class || $resourceClass === Stats::class) && (!$this->auth->isGranted('ROLE_COACH') && !$this->auth->isGranted('ROLE_ADMIN'))) {
+        if ( $resourceClass === Stats::class && (!$this->auth->isGranted('ROLE_COACH') && !$this->auth->isGranted('ROLE_ADMIN'))) {
             $rootAlias = $queryBuilder->getRootAliases()[0];
 
-            if ($resourceClass === Player::class) {
-                $queryBuilder->andWhere("$rootAlias.user = :user");
-            } elseif ($resourceClass === Stats::class) {
-                $queryBuilder->join("$rootAlias.player", "p")
-                    ->andWhere("p.user = :user");
-            }
+            $queryBuilder->join("$rootAlias.player", "p")
+                ->andWhere("p.user = :user");
 
             $queryBuilder->setParameter("user", $user);
+
+        } else if ($resourceClass === Stats::class && (!$this->auth->isGranted('ROLE_PLAYER'))){
+            $rootAlias = $queryBuilder->getRootAliases()[0];
+
+            $queryBuilder->join("$rootAlias.player", "p")
+                        ->join("p.user", "u")
+                        ->andWhere("u.club = :club");
+
+            $queryBuilder->setParameter("club", $club);
         }
     }
     public function applyToCollection(QueryBuilder $queryBuilder, QueryNameGeneratorInterface $queryNameGenerator, string $resourceClass, ?string $operationName = null)
