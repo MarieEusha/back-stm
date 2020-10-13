@@ -88,7 +88,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=15)
-     * @Groups({"clubs_read", "users_read", "admins_read", "coachs_read", "players_read"})
+     * @Groups({"clubs_read", "users_read", "admins_read", "coachs_read", "players_read", "teams_read"})
      * @Assert\NotBlank(message="Un numéro de téléphone est obligatoire")
      * @Assert\Length(min="10", max="10", minMessage="le numéro doit comporter 8 chiffres", maxMessage="le numéro doit comporter 8 chiffres")
      * @Assert\Regex(pattern="/^[0-9]*$/", message="nombre uniquement")
