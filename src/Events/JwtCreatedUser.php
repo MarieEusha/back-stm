@@ -21,7 +21,6 @@ class JwtCreatedUser
         }else{
             $data['club'] = null;
         }
-        $data['exp'] =
 
         $event->setData($data);
     }
