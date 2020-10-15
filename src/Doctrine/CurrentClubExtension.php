@@ -9,6 +9,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Extension\QueryItemExtensionInterface;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Util\QueryNameGeneratorInterface;
 use App\Entity\Coach;
 use App\Entity\Player;
+use App\Entity\Team;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\Security\Core\Security;
 
@@ -48,8 +49,18 @@ class CurrentClubExtension implements QueryCollectionExtensionInterface, QueryIt
             $queryBuilder->join("$rootAlias.user", "u")
                 ->andWhere("u.club = :club");
 
+            $queryBuilder->setParameter("club", $club);
+        }else if ($resourceClass === Team::class){
+            $user = $this->security->getUser();
+            //2. obtenir le club de l'user connecté
+            $club = $user->getClub();
 
+            $rootAlias = $queryBuilder->getRootAliases()[0];
+            // SELECT o from \App\Entity\Coach AS o     (on connait l'alias 'o' grâce à $rooAlias !)
+            // WHERE o. .......
 
+            //la modification de la requête  sera pas la même si on veut des coachs ou des players !
+            $queryBuilder->andWhere("$rootAlias.club = :club");
 
             $queryBuilder->setParameter("club", $club);
         }
