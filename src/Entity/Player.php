@@ -9,12 +9,19 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * @ORM\Entity(repositoryClass=PlayerRepository::class)
  * @ApiResource(
- *     attributes={"order"={"team.label", "user.lastName": "ASC"}
-
+ *     attributes={"order"={"team.label", "user.lastName": "ASC"},
+ *     itemOperations={
+ *      "GET", "PUT", "DELETE",
+ *      "pictureFile"={
+ *          "method"="get",
+ *          "path"="/players/{id}/pictureFile",
+ *          "controller"="App\Controller\PictureFilePlayerController"
+ *      }
  *     },
  *     normalizationContext={
             "groups"={"players_read"}
@@ -33,7 +40,7 @@ class Player
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"players_read", "tactics_read"})
+     * @Groups({"players_read", "teams_read", "tactics_read"})
      * @Assert\NotBlank(message="l'url de l'image est obligatoire")
      * @Assert\Type(type="string", message="l'url de l'image doit être une chaîne de caractères")
      * @Assert\Length(min="3", max="255", minMessage="l'url de l'image doit faire entre 3 et 255 caractéres", maxMessage="l'url de l'image doit faire entre 3 et 255 caractéres")
@@ -68,7 +75,7 @@ class Player
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="players", cascade={"persist", "remove"}))
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"players_read", "trainings_read", "trainingMisseds_read", "stats_read"})
+     * @Groups({"players_read", "trainings_read", "trainingMisseds_read", "stats_read", "teams_read"})
      * @Assert\NotBlank(message="Les informations du joueur sont obligatoires")
      */
     private $user;
@@ -97,6 +104,22 @@ class Player
     {
         $this->trainingMisseds = new ArrayCollection();
         $this->stats = new ArrayCollection();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPictureFile()
+    {
+        return $this->pictureFile;
+    }
+
+    /**
+     * @param mixed $pictureFile
+     */
+    public function setPictureFile($pictureFile)
+    {
+        $this->pictureFile = $pictureFile;
     }
 
     public function getId(): ?int
