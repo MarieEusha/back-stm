@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=PlayerRepository::class)
  * @ApiResource(
- *     attributes={
+ *     attributes={"order"={"team.label", "user.lastName": "ASC"}
 
  *     },
  *     normalizationContext={

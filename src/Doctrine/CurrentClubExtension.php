@@ -29,11 +29,12 @@ class CurrentClubExtension implements QueryCollectionExtensionInterface, QueryIt
     }
 
 
-    private function addWhere(QueryBuilder $queryBuilder, $resourceClass){
+    private function addWhere(QueryBuilder $queryBuilder, $resourceClass)
+    {
 
 
         //3. Si on demande des coachs ou des players alors, agir sur la requête pour qu'elle tienne compte du club de l'admin connecté
-        if($resourceClass === Coach::class || $resourceClass === Player::class ){
+        if ($resourceClass === Coach::class || $resourceClass === Player::class) {
             // 1. Obtenir l'utilisateur connecté
             $user = $this->security->getUser();
             //2. obtenir le club de l'user connecté
@@ -45,7 +46,9 @@ class CurrentClubExtension implements QueryCollectionExtensionInterface, QueryIt
 
             //la modification de la requête  sera pas la même si on veut des coachs ou des players !
             $queryBuilder->join("$rootAlias.user", "u")
-                          ->andWhere("u.club = :club");
+                ->andWhere("u.club = :club");
+
+
 
 
             $queryBuilder->setParameter("club", $club);
