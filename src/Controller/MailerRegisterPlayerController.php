@@ -53,27 +53,27 @@ class MailerRegisterPlayerController extends AbstractController
         $params = json_decode($request->getContent(), true);
         $url = $params["url"];
         $clubId = $params["club"];
-        $emailCoach = $params["email"];
+        $emailPlayer = $params["email"];
 
         //controle de l'adresse email envoyé
         //le champ email a t il été rempli?
-        if (isset($emailCoach) && !empty($emailCoach)){
+        if (isset($emailPlayer) && !empty($emailPlayer)){
             //est-ce un adresse mail valide?
-            if (filter_var($emailCoach, FILTER_VALIDATE_EMAIL)){
+            if (filter_var($emailPlayer, FILTER_VALIDATE_EMAIL)){
                 //verification dans la BDD si l'adresse mail n'existe pas déjà
                 //1.requête sql
-                $user = $this->userRepository->findOneBy(['email' => $emailCoach]);
+                $user = $this->userRepository->findOneBy(['email' => $emailPlayer]);
                 if(!$user){
                     //ok maintenant on peut traiter la demande !
                     //1. création d'un token !
                     $club = $this->clubRepository->find($clubId);
                     $user = new User();
-                    $user->setEmail($emailCoach)->setClub($club)->setRoles(["ROLE_COACH"])->setLastName('')->setFirstName('')->setBirthday('')->setPhone('')->setPassword('coach00');
+                    $user->setEmail($emailPlayer)->setClub($club)->setRoles(["ROLE_PLAYER"])->setLastName('')->setFirstName('')->setBirthday('')->setPhone('')->setPassword('coach00');
                     $token = $this->JWTTokenManager->create($user);
 
                     $email = (new Email())
                         ->from('SoccerTeamManager@dev.fr')
-                        ->to("$emailCoach")
+                        ->to("$emailPlayer")
                         ->subject('Devenez notre nouveau joueur !')
                         ->text("$url" . 'tokenDeFou')
                         ->html('<a href="'. "$url" . "$token" . '">'. 'S inscrire' .'</a>');
