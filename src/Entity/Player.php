@@ -120,7 +120,7 @@ class Player
     /**
      * @param mixed $pictureFile
      */
-    public function setPictureFile(File $pictureFile)
+    public function setPictureFile($pictureFile)
     {
         $this->pictureFile = $pictureFile;
     }

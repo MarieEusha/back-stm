@@ -11,7 +11,7 @@ class PictureFilePlayerController
 {
     public function __invoke(Player $data)
     {
-        $dir = 'storage\images\\';
+        $dir = __DIR__.'\..\..\public\storage\images\\';
 
         $image = imagecreatefromjpeg($dir.$data->getPicture());
         $data->setPictureFile($image);
