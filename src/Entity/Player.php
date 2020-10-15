@@ -40,7 +40,6 @@ class Player
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"players_read", "teams_read", "tactics_read"})
-     * @Assert\NotBlank(message="l'url de l'image est obligatoire")
      * @Assert\Type(type="string", message="l'url de l'image doit être une chaîne de caractères")
      * @Assert\Length(min="3", max="255", minMessage="l'url de l'image doit faire entre 3 et 255 caractéres", maxMessage="l'url de l'image doit faire entre 3 et 255 caractéres")
      */
