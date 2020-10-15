@@ -14,7 +14,6 @@ class PictureFilePlayerController
         $dir = __DIR__.'\..\..\public\storage\images\\';
 
         $image = imagecreatefromjpeg($dir.$data->getPicture());
-        $data->setPictureFile($image);
-        dd($data);
+        dd($image);
     }
 }

@@ -49,7 +49,6 @@ class Player
      */
     private $picture;
 
-    private $pictureFile;
     /**
      * @ORM\Column(type="integer", nullable=true)
      * @Groups({"players_read"})
