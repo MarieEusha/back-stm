@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div>
+        <h1> Bonjour ! <br>Vous avez reçu une invitation du club de<br> {{ club.label }}</h1>
+        <p>Devenez l'un de leurs {% if user.roles[0] == "ROLE_COACH" %} Coachs ! {% else %} Joueurs ! {% endif %}</p>
+        <p>
+            <a href="{{ url }}{{ token }}">Lien d'inscription</a>
+        </p>
+    </div>
+{% endblock %}
