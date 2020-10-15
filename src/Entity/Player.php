@@ -50,7 +50,6 @@ class Player
     /**
      * @ORM\Column(type="integer", nullable=true)
      * @Groups({"players_read"})
-     * @Assert\NotBlank(message="La taille du joueur est obligatoire")
      * @Assert\Type(type="int", message="La taille du joueur doit être un nombre entier")
      * @Assert\Length(min="2", max="3", minMessage="La taille du joueur doit faire entre 2 et 3 chiffres", maxMessage="La taille du joueur doit faire entre 2 et 3 chiffres")
      */
@@ -59,7 +58,6 @@ class Player
     /**
      * @ORM\Column(type="float", nullable=true)
      * @Groups({"players_read"})
-     * @Assert\NotBlank(message="Le poids du joueur est obligatoire")
      * @Assert\Type(type="float", message="Le poids du joueur doit être un nombre décimal")
      * @Assert\Length(min="2", max="3", minMessage="Le poids du joueur doit faire entre 2 et 3 chiffres", maxMessage="Le poids du joueur doit faire entre 2 et 3 chiffres")
      */
@@ -68,7 +66,6 @@ class Player
     /**
      * @ORM\Column(type="boolean")
      * @Groups({"players_read"})
-     * @Assert\NotBlank(message="Le status du joueur est obligatoire")
      */
     private $injured;
 
@@ -83,7 +80,6 @@ class Player
     /**
      * @ORM\ManyToOne(targetEntity=Team::class, inversedBy="players")
      * @Groups({"players_read"})
-     * @Assert\NotBlank(message="Les informations de l'équipe sont obligatoires")
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $team;
