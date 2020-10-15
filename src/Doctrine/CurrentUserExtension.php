@@ -28,7 +28,6 @@ class CurrentUserExtension implements QueryCollectionExtensionInterface, QueryIt
 
         //Obtenir le user connecté
         $user = $this->security->getUser();
-        $club = $user->getClub();
         //Si on demande des stats ou des players/coaches alors agir sur la requête pour qu'elle tienne compte de l'utilisateur connecté
         if ( $resourceClass === Stats::class && (!$this->auth->isGranted('ROLE_COACH') && !$this->auth->isGranted('ROLE_ADMIN'))) {
             $rootAlias = $queryBuilder->getRootAliases()[0];
@@ -39,6 +38,8 @@ class CurrentUserExtension implements QueryCollectionExtensionInterface, QueryIt
             $queryBuilder->setParameter("user", $user);
 
         } else if ($resourceClass === Stats::class && (!$this->auth->isGranted('ROLE_PLAYER'))){
+            $club = $user->getClub();
+
             $rootAlias = $queryBuilder->getRootAliases()[0];
 
             $queryBuilder->join("$rootAlias.player", "p")

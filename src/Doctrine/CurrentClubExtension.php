@@ -30,13 +30,15 @@ class CurrentClubExtension implements QueryCollectionExtensionInterface, QueryIt
 
 
     private function addWhere(QueryBuilder $queryBuilder, $resourceClass){
-        // 1. Obtenir l'utilisateur connecté
-        $user = $this->security->getUser();
-        //2. obtenir le club de l'user connecté
-        $club = $user->getClub();
+
 
         //3. Si on demande des coachs ou des players alors, agir sur la requête pour qu'elle tienne compte du club de l'admin connecté
         if($resourceClass === Coach::class || $resourceClass === Player::class ){
+            // 1. Obtenir l'utilisateur connecté
+            $user = $this->security->getUser();
+            //2. obtenir le club de l'user connecté
+            $club = $user->getClub();
+
             $rootAlias = $queryBuilder->getRootAliases()[0];
             // SELECT o from \App\Entity\Coach AS o     (on connait l'alias 'o' grâce à $rooAlias !)
             // WHERE o. .......

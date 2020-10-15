@@ -57,6 +57,8 @@ security:
         - { path: ^/api/training_misseds, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/api/trainings, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/api/users, roles: IS_AUTHENTICATED_FULLY, methods: [GET, DELETE, PUT] }
+        - { path: ^/api/emailCoach, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/user/, roles: IS_AUTHENTICATED_FULLY }
 
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
