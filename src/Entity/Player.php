@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\File\File;
 /**
  * @ORM\Entity(repositoryClass=PlayerRepository::class)
  * @ApiResource(
- *     attributes={"order"={"team.label", "user.lastName": "ASC"},
+ *     attributes={"order"={"team.label", "user.lastName": "ASC"}},
  *     itemOperations={
  *      "GET", "PUT", "DELETE",
  *      "pictureFile"={
@@ -100,22 +100,6 @@ class Player
     {
         $this->trainingMisseds = new ArrayCollection();
         $this->stats = new ArrayCollection();
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPictureFile()
-    {
-        return $this->pictureFile;
-    }
-
-    /**
-     * @param mixed $pictureFile
-     */
-    public function setPictureFile($pictureFile)
-    {
-        $this->pictureFile = $pictureFile;
     }
 
     public function getId(): ?int
