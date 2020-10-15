@@ -9,10 +9,19 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * @ORM\Entity(repositoryClass=PlayerRepository::class)
  * @ApiResource(
+ *     itemOperations={
+ *      "GET", "PUT", "DELETE",
+ *      "pictureFile"={
+ *          "method"="get",
+ *          "path"="/players/{id}/pictureFile",
+ *          "controller"="App\Controller\PictureFilePlayerController"
+ *      }
+ *     },
  *     attributes={
 
  *     },
@@ -40,6 +49,7 @@ class Player
      */
     private $picture;
 
+    private $pictureFile;
     /**
      * @ORM\Column(type="integer", nullable=true)
      * @Groups({"players_read"})
@@ -97,6 +107,22 @@ class Player
     {
         $this->trainingMisseds = new ArrayCollection();
         $this->stats = new ArrayCollection();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPictureFile()
+    {
+        return $this->pictureFile;
+    }
+
+    /**
+     * @param mixed $pictureFile
+     */
+    public function setPictureFile(File $pictureFile)
+    {
+        $this->pictureFile = $pictureFile;
     }
 
     public function getId(): ?int
