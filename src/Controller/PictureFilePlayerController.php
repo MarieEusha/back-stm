@@ -11,12 +11,9 @@ class PictureFilePlayerController
 {
     public function __invoke(Player $data)
     {
-        $path = 'storage\images\\'.$data->getPicture();
-        $type = pathinfo($path, PATHINFO_EXTENSION);
-        $data = file_get_contents($path);
-        $pictureBase64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+        $dir = __DIR__.'\..\..\public\storage\images\\';
 
-        //$image = imagecreatefromjpeg('storage\images\\'.$data->getPicture());
-        return $pictureBase64;
+        $image = imagecreatefromjpeg($dir.$data->getPicture());
+        dd($image);
     }
 }
