@@ -15,14 +15,6 @@ use Symfony\Component\HttpFoundation\File\File;
  * @ORM\Entity(repositoryClass=PlayerRepository::class)
  * @ApiResource(
  *     attributes={"order"={"team.label", "user.lastName": "ASC"}},
- *     itemOperations={
- *      "GET", "PUT", "DELETE",
- *      "pictureFile"={
- *          "method"="get",
- *          "path"="/players/{id}/pictureFile",
- *          "controller"="App\Controller\PictureFilePlayerController"
- *      }
- *     },
  *     normalizationContext={
             "groups"={"players_read"}
  *     }
