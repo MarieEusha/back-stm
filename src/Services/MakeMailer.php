@@ -52,7 +52,7 @@ class MakeMailer extends AbstractController
                 ->subject($subject)
                 ->htmlTemplate($template)
                 ->context($context);
-        for($i = 1; $i < count($to); $i++){
+        for($i = 1; $i < count($to) - 1; $i++){
             $email->addTo($to[$i]);
         }
 
