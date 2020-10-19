@@ -95,11 +95,9 @@ class CurrentClubExtension implements QueryCollectionExtensionInterface, QueryIt
 
             $rootAlias = $queryBuilder->getRootAliases()[0];
 
-            $queryBuilder->andWhere("$rootAlias.team = :team")
-                        ->andWhere("$rootAlias.id != :player");
+            $queryBuilder->andWhere("$rootAlias.team = :team");
 
             $queryBuilder->setParameter("team", $team);
-            $queryBuilder->setParameter("player", $player->getId());
 
         }else if ($resourceClass === Team::class && $this->auth->isGranted("ROLE_ADMIN")){
 
