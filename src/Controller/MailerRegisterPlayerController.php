@@ -7,13 +7,13 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Repository\ClubRepository;
 use App\Repository\UserRepository;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Services\MakeMailer;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 
 class MailerRegisterPlayerController extends AbstractController
@@ -47,6 +47,7 @@ class MailerRegisterPlayerController extends AbstractController
      * @Route("api/emailPlayer", methods={"POST"})
      * @param Request $request
      * @return JsonResponse
+     * @throws TransportExceptionInterface
      */
     public function sendEmailPlayer(Request $request)
     {
@@ -55,7 +56,7 @@ class MailerRegisterPlayerController extends AbstractController
         $clubId = $params["club"];
         $emailPlayer = $params["email"];
 
-        //controle de l'adresse email envoyé
+        //contrôle de l'adresse email envoyé
         //le champ email a t il été rempli?
         if (isset($emailPlayer) && !empty($emailPlayer)){
             //est-ce un adresse mail valide?
@@ -71,14 +72,13 @@ class MailerRegisterPlayerController extends AbstractController
                     $user->setEmail($emailPlayer)->setClub($club)->setRoles(["ROLE_PLAYER"])->setLastName('')->setFirstName('')->setBirthday('')->setPhone('')->setPassword('coach00');
                     $token = $this->JWTTokenManager->create($user);
 
-                    $email = (new Email())
-                        ->from('SoccerTeamManager@dev.fr')
-                        ->to("$emailPlayer")
-                        ->subject('Devenez notre nouveau joueur !')
-                        ->text("$url" . 'tokenDeFou')
-                        ->html('<a href="'. "$url" . "$token" . '">'. 'S inscrire' .'</a>');
-
-                    $this->mailer->send($email);
+                    MakeMailer::sendMail('SoccerTeamManager@example.fr',
+                                            $emailPlayer,
+                                            'Invitation SoccerTeamManager',
+                                            'email/register.html.twig',
+                                            ['user' => $user, 'token' => $token, 'club' => $club, 'url' => $url],
+                                            $this->mailer
+                                        );
 
                     return $this->json([ "success" => true], 200);
                 }else{

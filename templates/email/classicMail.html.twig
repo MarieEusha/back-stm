@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div>
+        <h1> Nouveau message de {{ user.firstName }} {{ user.lastName }}</h1>
+        <p>
+            {{ message }}
+        </p>
+    </div>
+{% endblock %}

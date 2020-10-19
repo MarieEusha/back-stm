@@ -9,7 +9,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * @ORM\Entity(repositoryClass=PlayerRepository::class)
@@ -33,7 +32,6 @@ class Player
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"players_read", "teams_read", "tactics_read"})
-     * @Assert\NotBlank(message="l'url de l'image est obligatoire")
      * @Assert\Type(type="string", message="l'url de l'image doit être une chaîne de caractères")
      * @Assert\Length(min="3", max="255", minMessage="l'url de l'image doit faire entre 3 et 255 caractéres", maxMessage="l'url de l'image doit faire entre 3 et 255 caractéres")
      */
