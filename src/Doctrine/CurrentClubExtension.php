@@ -65,9 +65,12 @@ class CurrentClubExtension implements QueryCollectionExtensionInterface, QueryIt
 
             //la modification de la requête  sera pas la même si on veut des coachs ou des players !
             $queryBuilder->join("$rootAlias.user", "u")
-                ->andWhere("u.club = :club");
+                    ->andWhere("u.club = :club")
+                    ->andWhere("u.id != :id");
 
             $queryBuilder->setParameter("club", $club);
+            $queryBuilder->setParameter("id", $user->getId());
+
         }else if (($resourceClass === Coach::class) && ($this->auth->isGranted("ROLE_PLAYER"))){
 
             //On sait que c'est un joueur, faut récupérer l'id de sa team...
@@ -85,6 +88,19 @@ class CurrentClubExtension implements QueryCollectionExtensionInterface, QueryIt
 
             $queryBuilder->setParameter("club", $club);
             $queryBuilder->setParameter("team", $team);
+        }else if(($resourceClass === Player::class) && ($this->auth->isGranted("ROLE_PLAYER"))){
+            $player = $this->playerRepository->findBy(['user' => $user->getId()]);
+            $player = $player[0];
+            $team = $player->getTeam();
+
+            $rootAlias = $queryBuilder->getRootAliases()[0];
+
+            $queryBuilder->andWhere("$rootAlias.team = :team")
+                        ->andWhere("$rootAlias.id != :player");
+
+            $queryBuilder->setParameter("team", $team);
+            $queryBuilder->setParameter("player", $player->getId());
+
         }else if ($resourceClass === Team::class && $this->auth->isGranted("ROLE_ADMIN")){
 
 
@@ -106,6 +122,16 @@ class CurrentClubExtension implements QueryCollectionExtensionInterface, QueryIt
                         ->andWhere("c.user = :user");
 
             $queryBuilder->setParameter("user", $user);
+        }else if($resourceClass === Team::class && $this->auth->isGranted("ROLE_PLAYER")){
+            $player = $this->playerRepository->findBy(['user' => $user->getId()]);
+            $player = $player[0];
+            $team = $player->getTeam();
+
+            $rootAlias = $queryBuilder->getRootAliases()[0];
+
+            $queryBuilder->andWhere("$rootAlias.id = :team");
+            $queryBuilder->setParameter("team", $team->getId());
+
         }else if ($resourceClass === Admin::class){
 
 
