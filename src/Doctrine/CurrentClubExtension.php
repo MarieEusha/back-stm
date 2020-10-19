@@ -7,6 +7,7 @@ namespace App\Doctrine;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Extension\QueryCollectionExtensionInterface;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Extension\QueryItemExtensionInterface;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Util\QueryNameGeneratorInterface;
+use App\Entity\Admin;
 use App\Entity\Coach;
 use App\Entity\Player;
 use App\Entity\Team;
@@ -82,6 +83,19 @@ class CurrentClubExtension implements QueryCollectionExtensionInterface, QueryIt
                         ->andWhere("c.user = :user");
 
             $queryBuilder->setParameter("user", $user);
+        }else if ($resourceClass === Admin::class){
+            $user = $this->security->getUser();
+            //2. obtenir le club de l'user connecté
+            $club = $user->getClub();
+
+            $rootAlias = $queryBuilder->getRootAliases()[0];
+
+            $queryBuilder->join("$rootAlias.user", "u")
+                        ->andWhere("u.club = :club");
+
+            $queryBuilder->setParameter("club", $club);
+
+
         }
     }
     public function applyToCollection(QueryBuilder $queryBuilder, QueryNameGeneratorInterface $queryNameGenerator, string $resourceClass, string $operationName = null)
