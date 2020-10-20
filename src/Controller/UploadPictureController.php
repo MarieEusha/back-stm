@@ -5,6 +5,7 @@ namespace App\Controller;
 
 
 use App\Repository\PlayerRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Gedmo\Sluggable\Util\Urlizer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -24,12 +25,17 @@ class UploadPictureController extends AbstractController
      * @var PlayerRepository
      */
     private $playerRepository;
+    /**
+     * @var EntityManagerInterface
+     */
+    private $manager;
 
-    public function __construct(Security $security, PlayerRepository $playerRepository)
+    public function __construct(Security $security, PlayerRepository $playerRepository, EntityManagerInterface $manager)
     {
 
         $this->security = $security;
         $this->playerRepository = $playerRepository;
+        $this->manager = $manager;
     }
 
     /**
@@ -76,8 +82,11 @@ class UploadPictureController extends AbstractController
                         $newFilename
                     );
 
+                    $this->manager->persist($player);
+                    $this->manager->flush();
+
                     //renvoie message success
-                    return $this->json(["success" => true, "violations" => "Nouvelle photo de profil bien enregistré !" ], 200);
+                    return $this->json(["success" => true, "response" => "Nouvelle photo de profil bien enregistré !", "location" => $destination ], 200);
                 }else{
                     return $this->json(["success" => false, "violations" => "Vous n'avez pas les droits" ], 400);
                 }
