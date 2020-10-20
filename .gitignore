@@ -10,6 +10,8 @@
 /var/
 /vendor/
 composer.lock
+
+/public/uploads
 ###< symfony/framework-bundle ###
 
 ###> lexik/jwt-authentication-bundle ###

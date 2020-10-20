@@ -24,6 +24,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     },
  *     normalizationContext={
             "groups"={"players_read"}
+ *     },
+ *     denormalizationContext={
+            "disable_type_enforcement"=true
  *     }
  * )
  */
@@ -64,6 +67,7 @@ class Player
     /**
      * @ORM\Column(type="boolean")
      * @Groups({"players_read"})
+     * @Assert\Type(type="bool", message="réponse attendue de type booléen : true ou false")
      */
     private $injured;
 
@@ -146,7 +150,7 @@ class Player
         return $this->injured;
     }
 
-    public function setInjured(bool $injured): self
+    public function setInjured($injured): self
     {
         $this->injured = $injured;
 
