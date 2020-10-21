@@ -53,14 +53,16 @@ class Player
      * @Groups({"players_read"})
      * @Assert\Type(type="int", message="La taille du joueur doit être un nombre entier")
      * @Assert\Length(min="2", max="3", minMessage="La taille du joueur doit faire entre 2 et 3 chiffres", maxMessage="La taille du joueur doit faire entre 2 et 3 chiffres")
+     * @Assert\Positive(message="nombre positif obligatoire")
      */
     private $height;
 
     /**
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      * @Groups({"players_read"})
-     * @Assert\Type(type="float", message="Le poids du joueur doit être un nombre décimal")
+     * @Assert\Type(type="int", message="Le poids du joueur doit être un nombre entier")
      * @Assert\Length(min="2", max="3", minMessage="Le poids du joueur doit faire entre 2 et 3 chiffres", maxMessage="Le poids du joueur doit faire entre 2 et 3 chiffres")
+     * @Assert\Positive(message="nombre positif obligaoire")
      */
     private $weight;
 
@@ -126,7 +128,7 @@ class Player
         return $this->height;
     }
 
-    public function setHeight(int $height): self
+    public function setHeight($height): self
     {
         $this->height = $height;
 
@@ -138,7 +140,7 @@ class Player
         return $this->weight;
     }
 
-    public function setWeight(float $weight): self
+    public function setWeight($weight): self
     {
         $this->weight = $weight;
 
