@@ -100,10 +100,13 @@ class CurrentClubExtension implements QueryCollectionExtensionInterface, QueryIt
 
             $rootAlias = $queryBuilder->getRootAliases()[0];
 
-            $queryBuilder->andWhere("$rootAlias.team = :team");
-
-            $queryBuilder->setParameter("team", $team);
-
+            if($team !== null){
+                $queryBuilder->andWhere("$rootAlias.team = :team");
+                $queryBuilder->setParameter("team", $team);
+            }else{
+                $queryBuilder->andWhere("$rootAlias.id = :playerID");
+                $queryBuilder->setParameter("playerID", $player->getId());
+            }
         }else if ($resourceClass === Team::class && $this->auth->isGranted("ROLE_ADMIN")){
             //2. obtenir le club de l'user connecté
             $club = $user->getClub();
@@ -138,7 +141,12 @@ class CurrentClubExtension implements QueryCollectionExtensionInterface, QueryIt
             $rootAlias = $queryBuilder->getRootAliases()[0];
 
             $queryBuilder->andWhere("$rootAlias.id = :team");
-            $queryBuilder->setParameter("team", $team->getId());
+
+            if ($team !== null){
+                $queryBuilder->setParameter("team", $team->getId());
+            }else{
+                $queryBuilder->setParameter("team", 0);
+            }
 
         }else if ($resourceClass === Admin::class){
             //2. obtenir le club de l'user connecté
