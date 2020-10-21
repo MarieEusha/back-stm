@@ -52,12 +52,12 @@ class CurrentClubExtension implements QueryCollectionExtensionInterface, QueryIt
     {
         // 1. Obtenir l'utilisateur connecté
         $user = $this->security->getUser();
-        //2. obtenir le club de l'user connecté
-        $club = $user->getClub();
+
 
         //3. Si on demande des coachs ou des players alors, agir sur la requête pour qu'elle tienne compte du club de l'admin connecté
         if (($resourceClass === Coach::class || $resourceClass === Player::class) && ($this->auth->isGranted("ROLE_ADMIN") || $this->auth->isGranted("ROLE_COACH"))) {
-
+            //2. obtenir le club de l'user connecté
+            $club = $user->getClub();
 
             $rootAlias = $queryBuilder->getRootAliases()[0];
             // SELECT o from \App\Entity\Coach AS o     (on connait l'alias 'o' grâce à $rooAlias !)
@@ -72,6 +72,8 @@ class CurrentClubExtension implements QueryCollectionExtensionInterface, QueryIt
             $queryBuilder->setParameter("id", $user->getId());
 
         }else if (($resourceClass === Coach::class) && ($this->auth->isGranted("ROLE_PLAYER"))){
+            //2. obtenir le club de l'user connecté
+            $club = $user->getClub();
 
             //On sait que c'est un joueur, faut récupérer l'id de sa team...
             $player = $this->playerRepository->findBy(['user' => $user->getId()]);
@@ -89,6 +91,9 @@ class CurrentClubExtension implements QueryCollectionExtensionInterface, QueryIt
             $queryBuilder->setParameter("club", $club);
             $queryBuilder->setParameter("team", $team);
         }else if(($resourceClass === Player::class) && ($this->auth->isGranted("ROLE_PLAYER"))){
+            //2. obtenir le club de l'user connecté
+            $club = $user->getClub();
+
             $player = $this->playerRepository->findBy(['user' => $user->getId()]);
             $player = $player[0];
             $team = $player->getTeam();
@@ -100,7 +105,8 @@ class CurrentClubExtension implements QueryCollectionExtensionInterface, QueryIt
             $queryBuilder->setParameter("team", $team);
 
         }else if ($resourceClass === Team::class && $this->auth->isGranted("ROLE_ADMIN")){
-
+            //2. obtenir le club de l'user connecté
+            $club = $user->getClub();
 
             $rootAlias = $queryBuilder->getRootAliases()[0];
             // SELECT o from \App\Entity\Coach AS o     (on connait l'alias 'o' grâce à $rooAlias !)
@@ -110,7 +116,8 @@ class CurrentClubExtension implements QueryCollectionExtensionInterface, QueryIt
 
             $queryBuilder->setParameter("club", $club);
         }else if ($resourceClass === Team::class && $this->auth->isGranted("ROLE_COACH")){
-
+            //2. obtenir le club de l'user connecté
+            $club = $user->getClub();
 
             $rootAlias = $queryBuilder->getRootAliases()[0];
             // SELECT o from \App\Entity\Coach AS o     (on connait l'alias 'o' grâce à $rooAlias !)
@@ -121,6 +128,9 @@ class CurrentClubExtension implements QueryCollectionExtensionInterface, QueryIt
 
             $queryBuilder->setParameter("user", $user);
         }else if($resourceClass === Team::class && $this->auth->isGranted("ROLE_PLAYER")){
+            //2. obtenir le club de l'user connecté
+            $club = $user->getClub();
+
             $player = $this->playerRepository->findBy(['user' => $user->getId()]);
             $player = $player[0];
             $team = $player->getTeam();
@@ -131,7 +141,8 @@ class CurrentClubExtension implements QueryCollectionExtensionInterface, QueryIt
             $queryBuilder->setParameter("team", $team->getId());
 
         }else if ($resourceClass === Admin::class){
-
+            //2. obtenir le club de l'user connecté
+            $club = $user->getClub();
 
             $rootAlias = $queryBuilder->getRootAliases()[0];
 
