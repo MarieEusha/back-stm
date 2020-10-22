@@ -57,13 +57,13 @@ class MailerController extends AbstractController
                     );
                     return $this->json([ "success" => true], 200);
                 }else{
-                    return $this->json(["success" => false, "violations" => "Veuillez saisir un message" ], 400);
+                    return $this->json(["success" => false, "violations" => ["msg" => "Veuillez saisir un message"] ], 400);
                 }
             }else{
-                return $this->json(["success" => false, "violations" => "Veuillez préciser le sujet de votre email" ], 400);
+                return $this->json(["success" => false, "violations" => ["subject" => "Veuillez préciser le sujet de votre email"] ], 400);
             }
         }else{
-            return $this->json(["success" => false, "violations" => "Veuillez sélectionner au moins un destinataire" ], 400);
+            return $this->json(["success" => false, "violations" => ["receivers" => "Veuillez sélectionner au moins un destinataire"] ], 400);
         }
 
 

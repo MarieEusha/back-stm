@@ -39,7 +39,7 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        $this->purgeImg('public/storage/images');
+        //$this->purgeImg('public/storage/images');
         $faker = Factory::create('fr_FR');
         // $product = new Product();
         // $manager->persist($product);
@@ -149,7 +149,6 @@ class AppFixtures extends Fixture
                 $player = new Player();
                 $player->setUser($user);
                 $player->setTeam($team1);
-                $player->setPicture($faker->image('public/storage/images', 380, 380, null, false));
                 $player->setHeight($faker->numberBetween(155, 200));
                 $player->setWeight($faker->numberBetween(60, 100));
                 $player->setInjured(false);
@@ -173,7 +172,6 @@ class AppFixtures extends Fixture
                 $player = new Player();
                 $player->setUser($user);
                 $player->setTeam($team2);
-                $player->setPicture($faker->image('public/storage/images', 380, 380, null, false));
                 $player->setHeight($faker->numberBetween(155, 200));
                 $player->setWeight($faker->numberBetween(60, 100));
                 $player->setInjured(false);
@@ -197,7 +195,6 @@ class AppFixtures extends Fixture
                 $player = new Player();
                 $player->setUser($user);
                 $player->setTeam($team3);
-                $player->setPicture($faker->image('public/storage/images', 380, 380, null, false));
                 $player->setHeight($faker->numberBetween(155, 200));
                 $player->setWeight($faker->numberBetween(60, 100));
                 $player->setInjured(false);
@@ -221,7 +218,6 @@ class AppFixtures extends Fixture
                 $player = new Player();
                 $player->setUser($user);
                 $player->setTeam($team4);
-                $player->setPicture($faker->image('public/storage/images', 380, 380, null, false));
                 $player->setHeight($faker->numberBetween(155, 200));
                 $player->setWeight($faker->numberBetween(60, 100));
                 $player->setInjured(false);
@@ -245,7 +241,6 @@ class AppFixtures extends Fixture
                 $player = new Player();
                 $player->setUser($user);
                 $player->setTeam($team5);
-                $player->setPicture($faker->image('public/storage/images', 380, 380, null, false));
                 $player->setHeight($faker->numberBetween(155, 200));
                 $player->setWeight($faker->numberBetween(60, 100));
                 $player->setInjured(false);
