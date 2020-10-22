@@ -48,7 +48,7 @@ class MailerController extends AbstractController
                     ///$receivers = string, chaque adresse email séparé par ';'  ---> on el transforme en array
                     $receivers = explode(';', $receivers);
                     $user = $this->security->getUser();
-                    MakeMailer::sendMultiMails('SoccerTeamManager@example.fr',
+                    MakeMailer::sendMultiMails('soccerteammanager@laposte.net',
                         $receivers,
                         $subject,
                         'email/classicMail.html.twig',

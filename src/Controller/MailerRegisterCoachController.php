@@ -72,7 +72,7 @@ class MailerRegisterCoachController extends AbstractController
                     $user->setEmail($emailCoach)->setClub($club)->setRoles(["ROLE_COACH"])->setLastName('')->setFirstName('')->setBirthday('')->setPhone('')->setPassword('coach00');
                     $token = $this->JWTTokenManager->create($user);
 
-                    MakeMailer::sendMail('SoccerTeamManager@example.fr',
+                    MakeMailer::sendMail('soccerteammanager@laposte.net',
                         $emailCoach,
                         'Invitation SoccerTeamManager',
                         'email/register.html.twig',
