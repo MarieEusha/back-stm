@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=PlayerRepository::class)
  * @ApiResource(
- *     attributes={"order"={"team.label", "user.lastName": "ASC"}},
+ *     attributes={"order"={"team.label", "team.category", "user.lastName": "ASC"}},
  *     itemOperations={
  *      "GET", "PUT", "DELETE",
  *      "pictureFile"={
