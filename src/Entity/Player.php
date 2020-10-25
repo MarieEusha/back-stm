@@ -60,7 +60,7 @@ class Player
 
     /**
      * @ORM\Column(type="boolean")
-     * @Groups({"players_read"})
+     * @Groups({"players_read", "teams_read"})
      * @Assert\Type(type="bool", message="réponse attendue de type booléen : true ou false")
      */
     private $injured;
