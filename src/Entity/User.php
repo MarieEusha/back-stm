@@ -80,7 +80,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="date")
-     * @Groups({"clubs_read", "users_read", "admins_read", "coachs_read", "players_read"})
+     * @Groups({"clubs_read", "users_read", "admins_read", "coachs_read", "players_read", "teams_read"})
      * @Assert\NotBlank(message="le date de naissance est obligatoire")
      * @Assert\Type(type="DateTime", message="la date doit être au format YYYY-MM-DD")
      */
