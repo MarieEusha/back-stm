@@ -48,7 +48,7 @@ class Team
     private $category;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Coach::class)
+     * @ORM\ManyToOne(targetEntity=Coach::class, inversedBy="teams")
      * @Groups({"teams_read"})
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
