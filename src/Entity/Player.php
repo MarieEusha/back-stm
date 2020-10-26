@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=PlayerRepository::class)
  * @ApiResource(
- *     attributes={"order"={"team.label", "user.lastName": "ASC"}},
+ *     attributes={"order"={"team.label", "team.category", "user.lastName": "ASC"}},
  *     normalizationContext={
             "groups"={"players_read"}
  *     },
@@ -42,7 +42,7 @@ class Player
 
     /**
      * @ORM\Column(type="integer", nullable=true)
-     * @Groups({"players_read"})
+     * @Groups({"players_read", "teams_read"})
      * @Assert\Type(type="int", message="La taille du joueur doit être un nombre entier")
      * @Assert\Length(min="2", max="3", minMessage="La taille du joueur doit faire entre 2 et 3 chiffres", maxMessage="La taille du joueur doit faire entre 2 et 3 chiffres")
      * @Assert\Positive(message="nombre positif obligatoire")
@@ -51,7 +51,7 @@ class Player
 
     /**
      * @ORM\Column(type="integer", nullable=true)
-     * @Groups({"players_read"})
+     * @Groups({"players_read", "teams_read"})
      * @Assert\Type(type="int", message="Le poids du joueur doit être un nombre entier")
      * @Assert\Length(min="2", max="3", minMessage="Le poids du joueur doit faire entre 2 et 3 chiffres", maxMessage="Le poids du joueur doit faire entre 2 et 3 chiffres")
      * @Assert\Positive(message="nombre positif obligaoire")
@@ -60,7 +60,7 @@ class Player
 
     /**
      * @ORM\Column(type="boolean")
-     * @Groups({"players_read"})
+     * @Groups({"players_read", "teams_read"})
      * @Assert\Type(type="bool", message="réponse attendue de type booléen : true ou false")
      */
     private $injured;
@@ -96,6 +96,54 @@ class Player
     {
         $this->trainingMisseds = new ArrayCollection();
         $this->stats = new ArrayCollection();
+    }
+
+    /**
+     * Permet de récupérer le total de carton rouge du player
+     * @Groups({"players_read", "teams_read"})
+     * @return int
+     */
+    public function getTotalRedCard(): int
+    {
+        return array_reduce($this->stats->toArray(), function ($total, $stat) {
+            return $total + $stat->getRedCard();
+        }, 0);
+    }
+
+    /**
+     * Permet de récupérer le total de carton rouge du player
+     * @Groups({"players_read", "teams_read"})
+     * @return int
+     */
+    public function getTotalYellowCard(): int
+    {
+        return array_reduce($this->stats->toArray(), function ($total, $stat) {
+            return $total + $stat->getYellowCard();
+        }, 0);
+    }
+
+    /**
+     * Permet de récupérer le total de carton rouge du player
+     * @Groups({"players_read", "teams_read"})
+     * @return int
+     */
+    public function getTotalPassAssist(): int
+    {
+        return array_reduce($this->stats->toArray(), function ($total, $stat) {
+            return $total + $stat->getPassAssist();
+        }, 0);
+    }
+
+    /**
+     * Permet de récupérer le total de carton rouge du player
+     * @Groups({"players_read", "teams_read"})
+     * @return int
+     */
+    public function getTotalGoal(): int
+    {
+        return array_reduce($this->stats->toArray(), function ($total, $stat) {
+            return $total + $stat->getGoal();
+        }, 0);
     }
 
     public function getId(): ?int
