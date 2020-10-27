@@ -12,7 +12,6 @@ class JwtCreatedUser
         $user = $event->getUser();
         //enrichir les data (payload) pour qu'elles contiennent ces données
         $data = $event->getData();
-        //dd($user->getClub()->getId());
         $data['firstName'] = $user->getFirstName();
         $data['lastName'] = $user->getLastName();
         $data['id'] = $user->getId();
