@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "264ca881cc1cd09fb6d45fb8e3534f57",
+    "content-hash": "599622166c9c1257a68c56b9e9aac87b",
     "packages": [
         {
             "name": "api-platform/core",
@@ -2168,6 +2168,10 @@
                 "rest",
                 "symfony"
             ],
+            "support": {
+                "issues": "https://github.com/lexik/LexikJWTAuthenticationBundle/issues",
+                "source": "https://github.com/lexik/LexikJWTAuthenticationBundle/tree/master"
+            },
             "funding": [
                 {
                     "url": "https://github.com/chalasr",
@@ -2819,6 +2823,9 @@
             ],
             "description": "Symfony Asset Component",
             "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/asset/tree/v5.1.7"
+            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -3991,6 +3998,10 @@
                 }
             ],
             "description": "Composer plugin for Symfony",
+            "support": {
+                "issues": "https://github.com/symfony/flex/issues",
+                "source": "https://github.com/symfony/flex/tree/v1.9.10"
+            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -7363,5 +7374,5 @@
         "ext-json": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "1.1.0"
+    "plugin-api-version": "2.0.0"
 }
