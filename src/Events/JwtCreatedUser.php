@@ -41,7 +41,5 @@ class JwtCreatedUser
         }
 
         $event->setData($data);
-        dd($data);
-       // dd($event);
     }
 }
