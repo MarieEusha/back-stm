@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use App\Repository\TeamRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -71,6 +72,7 @@ class Team
     /**
      * @ORM\OneToMany(targetEntity=Training::class, mappedBy="team", orphanRemoval=true)
      * @Groups({"teams_read"})
+     * @ApiSubresource()
      */
     private $trainings;
 
@@ -83,6 +85,7 @@ class Team
     /**
      * @ORM\OneToMany(targetEntity=Encounter::class, mappedBy="team")
      * @Groups({"teams_read"})
+     * @ApiSubresource()
      */
     private $encounters;
 

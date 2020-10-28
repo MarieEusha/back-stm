@@ -50,7 +50,7 @@ class UploadPictureController extends AbstractController
         $uploadedFile = $request->files->get('image');
         //2. On vérifie si on a bien reçu quelque chose et si l'extension du fichier et bien du .jpeg. Si c'est pas le cas, on renvoie un message d'erreur
         if($uploadedFile !== null){
-            if(pathinfo($uploadedFile->guessExtension())["filename"] === "jpeg"){
+            if(pathinfo($uploadedFile->guessExtension())["filename"] === "jpeg" || pathinfo($uploadedFile->guessExtension())["filename"] === "png"){
                 //3. création du path pour le dossier de destination du stockage de l'image
                 $destination =  $this->getParameter('kernel.project_dir').'/public/uploads';
 
@@ -91,7 +91,7 @@ class UploadPictureController extends AbstractController
                     return $this->json(["success" => false, "violations" => "Vous n'avez pas les droits" ], 400);
                 }
             }else{
-                return $this->json(["success" => false, "violations" => "Votre image n'est pas un .jpeg" ], 400);
+                return $this->json(["success" => false, "violations" => "Votre image doit être un jpeg ou un png" ], 400);
             }
         }else{
             return $this->json(["success" => false, "violations" => "Vous n'avez rien envoyé" ], 400);
@@ -107,9 +107,16 @@ class UploadPictureController extends AbstractController
     {
         $destination =  $this->getParameter('kernel.project_dir').'/public/uploads';
         $path = $destination .'/'. $file .".jpeg";
+        $path2 = $destination .'/'. $file .".png";
+
         if (file_exists($path)){
 
             $img = file_get_contents($path);
+            $img = base64_encode($img);
+
+            return $this->json(["success" => true, "data" => $img]);
+        }else if(file_exists($path2)){
+            $img = file_get_contents($path2);
             $img = base64_encode($img);
 
             return $this->json(["success" => true, "data" => $img]);

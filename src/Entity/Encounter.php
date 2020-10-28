@@ -13,9 +13,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=EncounterRepository::class)
  * @ApiResource(
- *     attributes={
-
- *     },
+ *     subresourceOperations={
+ *          "api_teams_encounters_get_subresource"={
+                "normalization_context"={"groups"={"encounters_subresource"}}
+ *     }},
  *     normalizationContext={
             "groups"={"encounters_read"}
  *     }
@@ -27,20 +28,20 @@ class Encounter
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"encounters_read", "teams_read", "stats_read"})
+     * @Groups({"encounters_read", "teams_read", "stats_read", "encounters_subresource"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="date")
-     * @Groups({"encounters_read", "stats_read"})
+     * @Groups({"encounters_read", "stats_read", "encounters_subresource"})
      * @Assert\Type(type="DateTime", message= "la date doit être au format YYYY-mm-dd")
      */
     private $date;
 
     /**
      * @ORM\Column(type="string", length=75)
-     * @Groups({"encounters_read"})
+     * @Groups({"encounters_read", "encounters_subresource"})
      * @Assert\NotBlank(message="le label est obligatoire")
      * @Assert\Type(type="string", message="le label doit être une chaîne de caractères")
      * @Assert\Length(min="3", max="50", minMessage="le nom de l'équipe adverse doit faire entre 3 et 50 caractéres", maxMessage="le nom de l'équipe adverse doit faire entre 3 et 50 caractéres")
@@ -49,7 +50,7 @@ class Encounter
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Groups({"encounters_read"})
+     * @Groups({"encounters_read", "encounters_subresource"})
      * @Assert\NotBlank(message="la catégorie est obligatoire")
      * @Assert\Type(type="string", message="la catégorie doit être une chaîne de caractères")
      * @Assert\Length(min="3", max="50", minMessage="la catégorie de l'équipe adverse doit faire entre 3 et 50 caractéres", maxMessage="la catégorie de l'équipe adverse doit faire entre 3 et 50 caractéres")
@@ -74,7 +75,7 @@ class Encounter
 
     /**
      * @ORM\OneToMany(targetEntity=Stats::class, mappedBy="encounter")
-     * @Groups({"encounters_read"})
+     * @Groups({"encounters_read", "encounters_subresource"})
      */
     private $stats;
 
