@@ -357,4 +357,14 @@ class User implements UserInterface
 
         return $this;
     }
+
+    /**
+     * @param ArrayCollection $players
+     */
+    public function setPlayers(ArrayCollection $players): void
+    {
+        $this->players = $players;
+    }
+
+
 }
