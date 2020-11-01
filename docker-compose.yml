@@ -1,0 +1,59 @@
+
+version: "3.3"
+services:
+  mysql:
+    image: mariadb:latest
+    container_name: soccer_mysql
+    restart: always
+    volumes:
+      - ~/db_soccer_back_volume:/var/lib/mysql
+    networks:
+      default:
+        ipv4_address: 192.168.2.3
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "false"
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: soccerTeamManager
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 1234
+    ports:
+      - "9906:3306"
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: soccer_phpmyadmin
+    links:
+      - mysql
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    restart: always
+    networks:
+      default:
+        ipv4_address: 192.168.2.4
+    ports:
+      - 8183:80
+
+  web:
+    build: ./.docker
+    container_name: soccer_back_web
+    restart: always
+    networks:
+      default:
+        ipv4_address: 192.168.2.2
+    volumes:
+      - ./:/var/www/html/
+      - ./.docker/virtualhost.conf:/etc/apache2/sites-available/000-default.conf
+      - ./.docker/.env.local:/var/www/html/
+    ports:
+      - "8000:8080"
+    depends_on:
+      - "mysql"
+
+networks:
+  default:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.2.0/24 # If you change this, make sure to change other IP addresses
