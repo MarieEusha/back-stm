@@ -44,7 +44,7 @@ services:
     volumes:
       - ./:/var/www/html/
       - ./.docker/virtualhost.conf:/etc/apache2/sites-available/000-default.conf
-      - ./.docker/.env.local:/var/www/html/
+      - ./.docker/.env.local:/var/www/html/.env.local
     ports:
       - "8000:8080"
     depends_on:
