@@ -28,9 +28,9 @@ class JwtCreatedUser
         else if($data['roles'][0] === 'ROLE_COACH') {
             $coach = $user->getCoaches()[0];
             $data['coach'] = $coach->getId();
-            foreach($coach->getTeams() as $team){
-                $data['teams'][] = $team->getId();
-            }
+//            foreach($coach->getTeams() as $team){
+//                $data['teams'][] = $team->getId();
+//            }
 
         }
         if (!empty($user->getClub())){
