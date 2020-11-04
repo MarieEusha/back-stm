@@ -18,6 +18,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     },
  *     normalizationContext={
             "groups"={"trainings_read"}
+ *     },
+ *     denormalizationContext={
+            "disable_type_enforcement"=true
  *     }
  * )
  */
@@ -87,7 +90,7 @@ class Training
         return $this->date;
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setDate($date): self
     {
         $this->date = $date;
 
