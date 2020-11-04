@@ -19,7 +19,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     }},
  *     normalizationContext={
             "groups"={"encounters_read"}
- *     }
+ *     },
+ *      denormalizationContext={
+           "disable_type_enforcement"=true
+*      }
  * )
  */
 class Encounter
@@ -67,9 +70,9 @@ class Encounter
 
     /**
      * @ORM\ManyToOne(targetEntity=Tactic::class)
+     * @Groups({"encounters_read", "encounters_subresource"})
      * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      * @Groups({"encounters_read"})
-     * @Assert\NotBlank(message="la sélection de la tactique est obligatoire")
      */
     private $tactic;
 
@@ -94,7 +97,7 @@ class Encounter
         return $this->date;
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setDate($date): self
     {
         $this->date = $date;
 
