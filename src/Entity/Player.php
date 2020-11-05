@@ -19,7 +19,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     },
  *     denormalizationContext={
             "disable_type_enforcement"=true
- *     }
+ *     },
+ *     subresourceOperations={
+ *          "api_teams_players_get_subresource"={
+            "normalization_context"={"groups"={"players_subresource"}}
+ *     }},
  * )
  */
 class Player
@@ -28,7 +32,7 @@ class Player
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"players_read", "teams_read", "trainings_read", "trainingMisseds_read", "tactics_read", "stats_read", "encounters_subresource"})
+     * @Groups({"players_read", "teams_read", "trainings_read", "trainingMisseds_read", "tactics_read", "stats_read", "encounters_subresource", "players_subresource"})
      */
     private $id;
 
@@ -68,7 +72,7 @@ class Player
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="players", cascade={"persist", "remove"}))
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"players_read", "trainings_read", "trainingMisseds_read", "stats_read", "teams_read"})
+     * @Groups({"players_read", "trainings_read", "trainingMisseds_read", "stats_read", "teams_read", "players_subresource"})
      * @Assert\NotBlank(message="Les informations du joueur sont obligatoires")
      */
     private $user;

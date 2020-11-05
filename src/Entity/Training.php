@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use App\Repository\TrainingRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -72,6 +73,7 @@ class Training
      * @ORM\OneToMany(targetEntity=TrainingMissed::class, mappedBy="training")
      * @ORM\JoinColumn(onDelete="SET NULL")
      * @Groups({"trainings_read"})
+     * @ApiSubresource()
      */
     private $trainingMisseds;
 
