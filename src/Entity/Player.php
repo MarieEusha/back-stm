@@ -32,7 +32,7 @@ class Player
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"players_read", "teams_read", "trainings_read", "trainingMisseds_read", "tactics_read", "stats_read", "encounters_subresource", "players_subresource"})
+     * @Groups({"players_read", "teams_read", "trainings_read", "trainingMisseds_read", "tactics_read", "stats_read", "encounters_subresource", "players_subresource", "tactics_subresource"})
      */
     private $id;
 

@@ -14,6 +14,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     attributes={
 
  *     },
+ *     subresourceOperations={
+            "api_teams_tactics_get_subresource"={
+ *              "normalization_context"={"groups"={"tactics_subresource"}}
+ *          }
+ *     },
  *     normalizationContext={
             "groups"={"tactics_read"}
  *     },
@@ -28,13 +33,13 @@ class Tactic
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"tactics_read", "teams_read", "encounters_read"}))
+     * @Groups({"tactics_read", "teams_read", "encounters_read", "tactics_subresource"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Groups({"tactics_read", "encounters_read","encounters_read", "encounters_subresource"})
+     * @Groups({"tactics_read", "encounters_read","encounters_read", "encounters_subresource", "tactics_subresource"})
      * @Assert\NotBlank(message="Le choix de la tactique est obligatoire")
      * @Assert\Type(type="string", message="Le choix de la tactique doit être une chaîne de caractères")
      * @Assert\Length(min="3", max="50", minMessage="Le choix de la tactique doit faire entre 3 et 50 caractéres", maxMessage="Le choix de la tactique doit faire entre 3 et 50 caractéres")
@@ -44,84 +49,84 @@ class Tactic
     /**
      * @ORM\ManyToOne(targetEntity=Team::class, inversedBy="tactics")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
-     * @Groups({"tactics_read"}))
+     * @Groups({"tactics_read"})
      */
     private $team;
 
     /**
      * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
-     * @Groups({"tactics_read"}))
+     * @Groups({"tactics_read", "tactics_subresource"})
      */
     private $pos1;
 
     /**
      * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
-     * @Groups({"tactics_read"}))
+     * @Groups({"tactics_read", "tactics_subresource"})
      */
     private $pos2;
 
     /**
      * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
-     * @Groups({"tactics_read"}))
+     * @Groups({"tactics_read", "tactics_subresource"})
      */
     private $pos3;
 
     /**
      * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
-     * @Groups({"tactics_read"}))
+     * @Groups({"tactics_read", "tactics_subresource"})
      */
     private $pos4;
 
     /**
      * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
-     * @Groups({"tactics_read"}))
+     * @Groups({"tactics_read", "tactics_subresource"})
      */
     private $pos5;
 
     /**
      * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
-     * @Groups({"tactics_read"}))
+     * @Groups({"tactics_read", "tactics_subresource"})
      */
     private $pos6;
 
     /**
      * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
-     * @Groups({"tactics_read"}))
+     * @Groups({"tactics_read", "tactics_subresource"})
      */
     private $pos7;
 
     /**
      * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
-     * @Groups({"tactics_read"}))
+     * @Groups({"tactics_read", "tactics_subresource"})
      */
     private $pos8;
 
     /**
      * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
-     * @Groups({"tactics_read"}))
+     * @Groups({"tactics_read", "tactics_subresource"})
      */
     private $pos9;
 
     /**
      * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
-     * @Groups({"tactics_read"}))
+     * @Groups({"tactics_read", "tactics_subresource"})
      */
     private $pos10;
 
     /**
      * @ORM\ManyToOne(targetEntity=Player::class)
      * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
-     * @Groups({"tactics_read"}))
+     * @Groups({"tactics_read", "tactics_subresource"})
      */
     private $pos11;
 
