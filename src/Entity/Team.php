@@ -12,10 +12,14 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
+//todo faire une sousresource pour recuperer les tactics
 /**
  * @ORM\Entity(repositoryClass=TeamRepository::class)
  * @ApiResource(
  *     attributes={
+ *     },
+ *     subresourceOperations={
+ *       "tactics_get_subresource"={"path"="/teams/{id}/tactics"}
  *     },
  *     normalizationContext={
  *       "groups"={"teams_read"}
@@ -79,6 +83,7 @@ class Team
     /**
      * @ORM\OneToMany(targetEntity=Tactic::class, mappedBy="team", orphanRemoval=true)
      * @Groups({"teams_read"})
+     * @ApiSubresource
      */
     private $tactics;
 
