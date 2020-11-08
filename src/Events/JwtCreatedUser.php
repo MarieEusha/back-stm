@@ -16,21 +16,29 @@ class JwtCreatedUser
         $data['lastName'] = $user->getLastName();
         $data['id'] = $user->getId();
         if($data['roles'][0] === 'ROLE_PLAYER') {
-            $data['player'] = $user->getPlayers()[0]->getId();
-            $teams = $user->getPlayers()[0]->getTeam();
-            if($teams != null){
-                $data['team'] = $teams->getId();
-            }
-            else {
-                $data['team'] = null;
+            $player = $user->getPlayers()[0];
+
+            if ($player != null){
+                $data['player'] = $player->getId();;
+                $teams = $player->getTeam();
+                if($teams != null){
+                    $data['team'] = $teams->getId();
+                }
+                else {
+                    $data['team'] = null;
+                }
+            }else{
+                $date['player'] = null;
             }
         }
         else if($data['roles'][0] === 'ROLE_COACH') {
             $coach = $user->getCoaches()[0];
-            $data['coach'] = $coach->getId();
-//            foreach($coach->getTeams() as $team){
-//                $data['teams'][] = $team->getId();
-//            }
+            if ($coach != null){
+                $data['coach'] = $coach->getId();
+            }else{
+                $data['coach'] = null;
+            }
+
 
         }
         if (!empty($user->getClub())){

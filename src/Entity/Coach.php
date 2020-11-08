@@ -83,7 +83,7 @@ class Coach
     public function addTeam(Team $team): self
     {
         if (!$this->teams->contains($team)) {
-            $this->teams[] = $coach;
+            $this->teams[] = $team;
             $team->setCoach($this);
         }
 
