@@ -82,6 +82,16 @@ class Encounter
      */
     private $stats;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $home;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $visitor;
+
     public function __construct()
     {
         $this->stats = new ArrayCollection();
@@ -179,6 +189,30 @@ class Encounter
                 $stat->setEncounter(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getHome(): ?int
+    {
+        return $this->home;
+    }
+
+    public function setHome(?int $home): self
+    {
+        $this->home = $home;
+
+        return $this;
+    }
+
+    public function getVisitor(): ?int
+    {
+        return $this->visitor;
+    }
+
+    public function setVisitor(?int $visitor): self
+    {
+        $this->visitor = $visitor;
 
         return $this;
     }
