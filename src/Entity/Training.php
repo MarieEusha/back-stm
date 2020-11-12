@@ -17,6 +17,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     attributes={
 
  *     },
+ *  *   attributes={
+            "order"={"date":"ASC"}
+ *     },
  *     normalizationContext={
             "groups"={"trainings_read"}
  *     },
