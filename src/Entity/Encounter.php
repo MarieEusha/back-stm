@@ -17,6 +17,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  *          "api_teams_encounters_get_subresource"={
                 "normalization_context"={"groups"={"encounters_subresource"}}
  *     }},
+ *      attributes={
+            "order"={"date":"ASC"}
+ *     },
  *     normalizationContext={
             "groups"={"encounters_read"}
  *     },
