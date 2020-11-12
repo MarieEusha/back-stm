@@ -13,9 +13,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=CoachRepository::class)
  * @ApiResource(
- *     attributes={
-            "order"={"lastName":"ASC"}
- *     },
  *     normalizationContext={"groups"={"coachs_read"}},
  *     itemOperations={"GET", "PUT", "DELETE", "teamsCoach"={
  *          "method"="get",
