@@ -11,7 +11,10 @@ use App\Entity\Admin;
 use App\Entity\Coach;
 use App\Entity\Encounter;
 use App\Entity\Player;
+use App\Entity\Tactic;
 use App\Entity\Team;
+use App\Entity\Training;
+use App\Entity\TrainingMissed;
 use App\Repository\PlayerRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
@@ -160,12 +163,22 @@ class CurrentClubExtension implements QueryCollectionExtensionInterface, QueryIt
             $queryBuilder->setParameter("club", $club);
 
 
-        }else if ($resourceClass === Encounter::class){
+        }else if ($resourceClass === Encounter::class || $resourceClass === Training::class || $resourceClass === Tactic::class){
             $club = $user->getClub();
 
             $rootAlias = $queryBuilder->getRootAliases()[0];
 
             $queryBuilder->join("$rootAlias.team", "t")
+                        ->andWhere("t.club = :club");
+
+            $queryBuilder->setParameter("club", $club);
+        }else if ($resourceClass === TrainingMissed::class){
+            $club = $user->getClub();
+
+            $rootAlias = $queryBuilder->getRootAliases()[0];
+
+            $queryBuilder->join("$rootAlias.training", "tr")
+                        ->join ("tr.team", "t")
                         ->andWhere("t.club = :club");
 
             $queryBuilder->setParameter("club", $club);
