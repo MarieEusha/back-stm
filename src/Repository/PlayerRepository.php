@@ -19,7 +19,6 @@ class PlayerRepository extends ServiceEntityRepository
         parent::__construct($registry, Player::class);
     }
 
-
     public function findPlayersWithoutTeam($idClub)
     {
             $conn = $this->getEntityManager()->getConnection();
@@ -37,6 +36,130 @@ class PlayerRepository extends ServiceEntityRepository
             return $stmt->fetchAll();
     }
 
+    public function excludeToTactics($playerId, $teamId){
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+                UPDATE tactic
+                SET pos1_id = NULL 
+                WHERE team_id = :id_team AND pos1_id = :id_player
+            ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([
+            'id_team' => $teamId,
+            'id_player' => $playerId
+        ]);
+
+        /*$sql = '
+                UPDATE tactic
+                SET pos2_id = NULL 
+                WHERE team_id = :id_team AND pos2_id = :id_player
+            ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([
+            'id_team' => $teamId,
+            'id_player' => $playerId
+        ]);
+
+        $sql = '
+                UPDATE tactic
+                SET pos3_id = NULL 
+                WHERE team_id = :id_team AND pos3_id = :id_player
+            ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([
+            'id_team' => $teamId,
+            'id_player' => $playerId
+        ]);
+
+        $sql = '
+                UPDATE tactic
+                SET pos4_id = NULL 
+                WHERE team_id = :id_team AND pos4_id = :id_player
+            ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([
+            'id_team' => $teamId,
+            'id_player' => $playerId
+        ]);
+
+        $sql = '
+                UPDATE tactic
+                SET pos5_id = NULL 
+                WHERE team_id = :id_team AND pos5_id = :id_player
+            ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([
+            'id_team' => $teamId,
+            'id_player' => $playerId
+        ]);
+
+        $sql = '
+                UPDATE tactic
+                SET pos6_id = NULL 
+                WHERE team_id = :id_team AND pos6_id = :id_player
+            ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([
+            'id_team' => $teamId,
+            'id_player' => $playerId
+        ]);
+
+        $sql = '
+                UPDATE tactic
+                SET pos7_id = NULL 
+                WHERE team_id = :id_team AND pos7_id = :id_player
+            ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([
+            'id_team' => $teamId,
+            'id_player' => $playerId
+        ]);
+
+        $sql = '
+                UPDATE tactic
+                SET pos8_id = NULL 
+                WHERE team_id = :id_team AND pos8_id = :id_player
+            ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([
+            'id_team' => $teamId,
+            'id_player' => $playerId
+        ]);
+
+        $sql = '
+                UPDATE tactic
+                SET pos9_id = NULL 
+                WHERE team_id = :id_team AND pos9_id = :id_player
+            ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([
+            'id_team' => $teamId,
+            'id_player' => $playerId
+        ]);
+
+        $sql = '
+                UPDATE tactic
+                SET pos10_id = NULL 
+                WHERE team_id = :id_team AND pos10_id = :id_player
+            ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([
+            'id_team' => $teamId,
+            'id_player' => $playerId
+        ]);
+
+        $sql = '
+                UPDATE tactic
+                SET pos11_id = NULL 
+                WHERE team_id = :id_team AND pos11_id = :id_player
+            ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([
+            'id_team' => $teamId,
+            'id_player' => $playerId
+        ]);*/
+    }
 
 
     // /**
