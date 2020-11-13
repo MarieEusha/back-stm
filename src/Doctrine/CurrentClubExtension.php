@@ -9,10 +9,10 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Extension\QueryItemExtensionInterface;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Util\QueryNameGeneratorInterface;
 use App\Entity\Admin;
 use App\Entity\Coach;
+use App\Entity\Encounter;
 use App\Entity\Player;
 use App\Entity\Team;
 use App\Repository\PlayerRepository;
-use App\Repository\TeamRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
@@ -160,6 +160,15 @@ class CurrentClubExtension implements QueryCollectionExtensionInterface, QueryIt
             $queryBuilder->setParameter("club", $club);
 
 
+        }else if ($resourceClass === Encounter::class){
+            $club = $user->getClub();
+
+            $rootAlias = $queryBuilder->getRootAliases()[0];
+
+            $queryBuilder->join("$rootAlias.team", "t")
+                        ->andWhere("t.club = :club");
+
+            $queryBuilder->setParameter("club", $club);
         }
     }
     public function applyToCollection(QueryBuilder $queryBuilder, QueryNameGeneratorInterface $queryNameGenerator, string $resourceClass, string $operationName = null)
