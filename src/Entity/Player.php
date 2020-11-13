@@ -20,11 +20,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     denormalizationContext={
             "disable_type_enforcement"=true
  *     },
- *     itemOperations={"GET", "PUT", "DELETE", "excludeToTactics"={
- *          "method"="put",
- *          "path"="/players/{playerId}/teams/{teamId}/excludeToTactics",
- *          "controller"="App\Controller\PlayerExcludeToTacticsController"
- *      }},
  *     subresourceOperations={
  *          "api_teams_players_get_subresource"={
             "normalization_context"={"groups"={"players_subresource"}}

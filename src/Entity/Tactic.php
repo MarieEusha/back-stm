@@ -14,17 +14,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     attributes={
  *
  *     },
- *     itemOperations={"GET", "PUT", "DELETE",
- *     "allTacticsWithPlayer"={
- *          "method"="get",
- *          "path"="/tactics/{playerId}",
- *          "controller"="App\Controller\TacticsWithPlayerController"
- *      },
- *     "excludeToTactics"={
- *          "method"="put",
- *          "path"="/tactics/excludeToTactics/{playerId}",
- *          "controller"="App\Controller\PlayerExcludeToTacticsController"
- *      }},
  *     subresourceOperations={
             "api_teams_tactics_get_subresource"={
  *              "normalization_context"={"groups"={"tactics_subresource"}}
