@@ -72,7 +72,12 @@ class UploadPictureController extends AbstractController
                     if ( $player->getPicture()){
                         $originalPicture = $player->getPicture();
                         //Si oui on la supprime
-                        unlink('uploads/' . $originalPicture . ".jpeg");
+                        if(file_exists('uploads/' . $originalPicture . ".jpeg")){
+                            unlink('uploads/' . $originalPicture . ".jpeg");
+                        }else{
+                            unlink('uploads/' . $originalPicture . ".png");
+                        }
+
                     }
                     //8. on lui attribue la nouvelle image
                     $player->setPicture($filenameWithoutExtension);
