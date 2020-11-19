@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass=TacticRepository::class)
  * @ApiResource(
  *     attributes={
-
+ *
  *     },
  *     subresourceOperations={
             "api_teams_tactics_get_subresource"={

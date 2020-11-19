@@ -23,7 +23,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     subresourceOperations={
  *          "api_teams_players_get_subresource"={
             "normalization_context"={"groups"={"players_subresource"}}
- *     }},
+ *     }}
  * )
  */
 class Player
