@@ -86,11 +86,13 @@ class Encounter
     private $stats;
 
     /**
+     * @Groups({"encounters_read", "encounters_subresource"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $home;
 
     /**
+     * @Groups({"encounters_read", "encounters_subresource"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $visitor;
