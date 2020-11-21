@@ -14,6 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=TeamRepository::class)
+ * @UniqueEntity("label", message="Ce nom d'équipe existe déjà")
  * @ApiResource(
  *     attributes={
  *     },
@@ -36,7 +37,7 @@ class Team
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=75)
+     * @ORM\Column(type="string", length=75, unique=true)
      * @Groups({"teams_read", "clubs_read", "players_read", "trainings_read", "tactics_read", "encounters_read", "coachs_read"})
      * @Assert\NotBlank(message="Un nom d'équipe est obligatoire")
      * @Assert\Length(min="2", max="75", minMessage="Le nom d'équipe doit être compris entre 2 et 75 caractéres", maxMessage="Le nom d'équipe doit être compris entre 2 et 75 caractéres")
@@ -47,7 +48,7 @@ class Team
      * @ORM\Column(type="string", length=50)
      * @Groups({"teams_read", "clubs_read", "players_read", "trainings_read", "tactics_read", "encounters_read", "coachs_read"})
      * @Assert\NotBlank(message="Une catégorie est obligatoire")
-     * @Assert\Choice({"Cadet", "Junior", "Senior"})
+     * @Assert\Choice(message="Il faut choisir une catégoie", {"Cadet", "Junior", "Senior"})
      */
     private $category;
 
