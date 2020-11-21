@@ -63,7 +63,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=75)
-     * @Groups({"clubs_read", "users_read", "admins_read", "coachs_read", "players_read", "teams_read", "trainings_read", "trainingMisseds_read", "stats_read", "players_subresource"})
+     * @Groups({"clubs_read", "users_read", "admins_read", "coachs_read", "players_read", "teams_read", "trainings_read", "trainingMisseds_read", "stats_read", "players_subresource", "encounters_read"})
      * @Assert\NotBlank(message="le nom de famille est obligatoire")
      * @Assert\Length(min="2", max="75", minMessage="le nom de famille doit faire entre 2 et 75 caractères", maxMessage="le nom de famille doit faire entre 2 et 75 caractères")
      *
@@ -72,7 +72,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=75)
-     * @Groups({"clubs_read", "users_read", "admins_read", "coachs_read", "players_read", "teams_read", "trainings_read", "trainingMisseds_read", "stats_read", "players_subresource"})
+     * @Groups({"clubs_read", "users_read", "admins_read", "coachs_read", "players_read", "teams_read", "trainings_read", "trainingMisseds_read", "stats_read", "players_subresource", "encounters_read"})
      * @Assert\NotBlank(message="le prénom est obligatoire")
      * @Assert\Length(min="2", max="75", minMessage="le prénom doit faire entre 2 et 75 caractères", maxMessage="le prénom doit faire entre 2 et 75 caractères")
      */

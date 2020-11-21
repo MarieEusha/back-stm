@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use App\Repository\EncounterRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -16,7 +17,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     subresourceOperations={
  *          "api_teams_encounters_get_subresource"={
                 "normalization_context"={"groups"={"encounters_subresource"}}
- *     }},
+ *          },
+ *          "stats_get_subresource"={"path"="/encounters/{id}/stats"}
+ *     },
  *      attributes={
             "order"={"date":"ASC"}
  *     },
@@ -72,16 +75,17 @@ class Encounter
     private $team;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Tactic::class)
+     * @ORM\ManyToOne(targetEntity=TacticArch::class)
      * @Groups({"encounters_read", "encounters_subresource"})
      * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      * @Groups({"encounters_read"})
      */
-    private $tactic;
+    private $tacticArch;
 
     /**
      * @ORM\OneToMany(targetEntity=Stats::class, mappedBy="encounter")
-     * @Groups({"encounters_read", "encounters_subresource"})
+     * @Groups({"encounters_subresource"})
+     * @ApiSubresource
      */
     private $stats;
 
@@ -153,14 +157,14 @@ class Encounter
         return $this;
     }
 
-    public function getTactic(): ?Tactic
+    public function getTacticArch(): ?TacticArch
     {
-        return $this->tactic;
+        return $this->tacticArch;
     }
 
-    public function setTactic(?Tactic $tactic): self
+    public function setTacticArch(?TacticArch $tacticArch): self
     {
-        $this->tactic = $tactic;
+        $this->tacticArch = $tacticArch;
 
         return $this;
     }

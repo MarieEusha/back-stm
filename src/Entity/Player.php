@@ -32,13 +32,13 @@ class Player
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"players_read", "teams_read", "trainings_read", "trainingMisseds_read", "tactics_read", "stats_read", "encounters_subresource", "players_subresource", "tactics_subresource"})
+     * @Groups({"players_read", "teams_read", "trainings_read", "trainingMisseds_read", "tactics_read", "stats_read", "encounters_subresource", "players_subresource", "tactics_subresource", "encounters_read", "stats_subresource"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"players_read", "teams_read", "tactics_read"})
+     * @Groups({"players_read", "teams_read", "tactics_read", "players_subresource", "encounters_read"})
      * @Assert\Type(type="string", message="l'url de l'image doit être une chaîne de caractères")
      * @Assert\Length(min="3", max="255", minMessage="l'url de l'image doit faire entre 3 et 255 caractéres", maxMessage="l'url de l'image doit faire entre 3 et 255 caractéres")
      */
@@ -72,7 +72,7 @@ class Player
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="players", cascade={"persist", "remove"}))
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"players_read", "trainings_read", "trainingMisseds_read", "stats_read", "teams_read", "players_subresource"})
+     * @Groups({"players_read", "trainings_read", "trainingMisseds_read", "stats_read", "teams_read", "players_subresource", "encounters_read"})
      * @Assert\NotBlank(message="Les informations du joueur sont obligatoires")
      */
     private $user;

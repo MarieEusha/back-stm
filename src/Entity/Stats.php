@@ -11,8 +11,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\StatsRepository", repositoryClass=StatsRepository::class)
  * @ApiResource(
- *     attributes={
-
+ *     subresourceOperations={
+            "api_encounters_stats_get_subresource"={
+ *              "normalization_context"={"groups"={"stats_subresource"}}
+ *          }
  *     },
  *     normalizationContext={
             "groups"={"stats_read"}
@@ -28,13 +30,13 @@ class Stats
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"stats_read", "encounters_read"})
+     * @Groups({"stats_read", "encounters_read", "stats_subresource"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"stats_read", "encounters_subresource"})
+     * @Groups({"stats_read", "encounters_subresource", "stats_subresource"})
      * @Assert\Type(type="integer", message="le nombre de carton rouge doit être un chiffre entier")
      * @Assert\PositiveOrZero(message="le nombre de carton rouge doit être un chiffre entier égale ou supérieur à 0")
      */
@@ -42,7 +44,7 @@ class Stats
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"stats_read", "encounters_subresource"})
+     * @Groups({"stats_read", "encounters_subresource", "stats_subresource"})
      * @Assert\Type(type="integer", message="le nombre de carton rouge doit être un chiffre entier")
      * @Assert\PositiveOrZero(message="le nombre de carton rouge doit être un chiffre entier égale ou supérieur à 0")
      */
@@ -50,7 +52,7 @@ class Stats
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"stats_read", "encounters_subresource"})
+     * @Groups({"stats_read", "encounters_subresource", "stats_subresource"})
      * @Assert\Type(type="integer", message="le nombre de carton rouge doit être un chiffre entier")
      * @Assert\PositiveOrZero(message="le nombre de carton rouge doit être un chiffre entier égale ou supérieur à 0")
      */
@@ -58,7 +60,7 @@ class Stats
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"stats_read", "encounters_subresource"})
+     * @Groups({"stats_read", "encounters_subresource", "stats_subresource"})
      * @Assert\Type(type="integer", message="le nombre de carton rouge doit être un chiffre entier")
      * @Assert\PositiveOrZero(message="le nombre de carton rouge doit être un chiffre entier égale ou supérieur à 0")
      */
@@ -75,7 +77,7 @@ class Stats
      * @ORM\ManyToOne(targetEntity=Player::class, inversedBy="stats")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      * @Assert\NotBlank(message="Les informations de du joueur sont obligatoires")
-     * @Groups({"stats_read", "encounters_subresource"})
+     * @Groups({"stats_read", "encounters_subresource", "stats_subresource"})
      */
     private $player;
 

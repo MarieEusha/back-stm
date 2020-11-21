@@ -33,13 +33,13 @@ class Tactic
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"tactics_read", "teams_read", "encounters_read", "tactics_subresource"})
+     * @Groups({"tactics_read", "teams_read", "tactics_subresource"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Groups({"tactics_read", "encounters_read","encounters_read", "encounters_subresource", "tactics_subresource"})
+     * @Groups({"tactics_read", "tactics_subresource"})
      * @Assert\NotBlank(message="Le choix de la tactique est obligatoire")
      * @Assert\Type(type="string", message="Le choix de la tactique doit être une chaîne de caractères")
      * @Assert\Length(min="3", max="50", minMessage="Le choix de la tactique doit faire entre 3 et 50 caractéres", maxMessage="Le choix de la tactique doit faire entre 3 et 50 caractéres")

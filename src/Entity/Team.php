@@ -12,7 +12,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
-//todo faire une sousresource pour recuperer les tactics
 /**
  * @ORM\Entity(repositoryClass=TeamRepository::class)
  * @ApiResource(
@@ -95,12 +94,18 @@ class Team
      */
     private $encounters;
 
+    /**
+     * @ORM\OneToMany(targetEntity=TacticArch::class, mappedBy="team", orphanRemoval=true)
+     */
+    private $tacticArches;
+
     public function __construct()
     {
         $this->players = new ArrayCollection();
         $this->trainings = new ArrayCollection();
         $this->tactics = new ArrayCollection();
         $this->encounters = new ArrayCollection();
+        $this->tacticArches = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -274,6 +279,36 @@ class Team
             // set the owning side to null (unless already changed)
             if ($encounter->getTeam() === $this) {
                 $encounter->setTeam(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|TacticArch[]
+     */
+    public function getTacticArches(): Collection
+    {
+        return $this->tacticArches;
+    }
+
+    public function addTacticArch(TacticArch $tacticArch): self
+    {
+        if (!$this->tacticArches->contains($tacticArch)) {
+            $this->tacticArches[] = $tacticArch;
+            $tacticArch->setTeam($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTacticArch(TacticArch $tacticArch): self
+    {
+        if ($this->tacticArches->removeElement($tacticArch)) {
+            // set the owning side to null (unless already changed)
+            if ($tacticArch->getTeam() === $this) {
+                $tacticArch->setTeam(null);
             }
         }
 
