@@ -302,7 +302,7 @@ class AppFixtures extends Fixture
 
 
             //création de tactics
-            $type1 = '4-4-2';
+            $type1 = '4-4-2-losange';
             $type2 = '5-3-2';
             $type3 = '3-5-2';
 
