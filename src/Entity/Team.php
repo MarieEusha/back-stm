@@ -14,7 +14,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=TeamRepository::class)
- * @UniqueEntity("label", message="Ce nom d'équipe existe déjà")
  * @ApiResource(
  *     attributes={
  *     },
