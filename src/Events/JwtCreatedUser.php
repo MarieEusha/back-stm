@@ -19,7 +19,7 @@ class JwtCreatedUser
             $player = $user->getPlayers()[0];
 
             if ($player != null){
-                $data['player'] = $player->getId();;
+                $data['player'] = $player->getId();
                 $teams = $player->getTeam();
                 if($teams != null){
                     $data['team'] = $teams->getId();
